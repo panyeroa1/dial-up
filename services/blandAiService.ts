@@ -3,7 +3,7 @@ import { CallLog, Voice, Agent } from "../types";
 import { AYLA_PROMPT, STEPHEN_PROMPT } from "../constants";
 import { getConfig } from "./configService";
 
-const EBURON_ERROR_MESSAGE = "The Eburon Phone API service encountered an error. Please try again.";
+const EBURON_ERROR_MESSAGE = "The Eburon server encountered an error. Please try again.";
 
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
