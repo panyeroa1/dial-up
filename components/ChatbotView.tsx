@@ -5,7 +5,7 @@ import { sendMessageStreamToGemini } from '../services/geminiService';
 import { sendMessageStreamToOllama, checkOllamaConnection, fetchOllamaModels } from '../services/ollamaService';
 import * as dataService from '../services/dataService';
 import { uploadChatImage } from '../services/supabaseService';
-import { SendIcon, PaperclipIcon, SearchIcon, CodeIcon, Trash2Icon, MicIcon, BrainCircuitIcon, GlobeIcon, StopIcon, CpuIcon, ServerIcon, XIcon, CheckCircleIcon, RefreshIcon, GoogleIcon } from './icons';
+import { SendIcon, PaperclipIcon, SearchIcon, CodeIcon, Trash2Icon, MicIcon, BrainCircuitIcon, GlobeIcon, StopIcon, CpuIcon, ServerIcon, XIcon, CheckCircleIcon, RefreshIcon } from './icons';
 import { EBURON_SYSTEM_PROMPT, DEFAULT_OLLAMA_SETTINGS } from '../constants';
 import { LoadingIndicator } from './LoadingIndicator';
 import { useConfig } from '../contexts/ConfigContext';
@@ -634,7 +634,7 @@ const ChatbotView: React.FC<ChatbotViewProps> = ({ setGeneratedAppHtml }) => {
                     <div className="absolute -top-8 left-6 flex gap-2">
                         {useSearchGrounding && (
                             <div className="bg-eburon-accent/10 backdrop-blur-md border border-eburon-accent/30 text-eburon-accent text-[10px] px-2 py-1 rounded-full flex items-center gap-1 shadow-lg animate-fade-in">
-                                <GoogleIcon className="w-3 h-3" />
+                                <SearchIcon className="w-3 h-3" />
                                 <span className="font-medium">Search Grounding On</span>
                             </div>
                         )}

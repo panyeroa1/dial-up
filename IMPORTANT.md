@@ -8,7 +8,7 @@ All front-end UI elements must exclusively feature Eburon branding. This means t
 This enforcement is vital to ensure a unified and professional brand image. The Eburon identity should be clear and consistent across all user-facing interfaces. Please prioritize this as a non-negotiable standard in your development workflow.
 
 By enforcing this rule, we protect the integrity and recognition of the Eburon brand. Thank you for your attention to this detail and for ensuring that all front-end elements reflect this guideline.
-
+that should go even for error handling
 ---
 
 There you go! That’s your important notice in a nutshell. Let me know if you need any tweaks!
