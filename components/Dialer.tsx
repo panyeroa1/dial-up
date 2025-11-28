@@ -6,7 +6,6 @@ import { getActiveDialerAgent } from '../services/dataService';
 import { BEATRICE_DEFAULT_AGENT, BEATRICE_PROMPT } from '../constants';
 import { Agent } from '../types';
 import { useGeminiLiveAgent } from '../hooks/useGeminiLive';
-import { playRingingSound, preloadRingingSound, playBackgroundNoise } from '../services/audioPlayerService';
 
 interface DialerProps {}
 
@@ -70,15 +69,10 @@ const Dialer: React.FC<DialerProps> = () => {
     const [statusText, setStatusText] = useState('Ready');
     const [isCalling, setIsCalling] = useState(false);
     const [activeAgent, setActiveAgent] = useState<Agent>(BEATRICE_DEFAULT_AGENT);
-    const [isRinging, setIsRinging] = useState(false);
     
     // Web Demo State
     const [isWebDemo, setIsWebDemo] = useState(false);
     const { startSession, endSession, isSessionActive, isConnecting: isWebConnecting } = useGeminiLiveAgent();
-    
-    // Audio cleanup refs
-    const audioStopRef = useRef<(() => void) | null>(null);
-    const backgroundNoiseRef = useRef<(() => void) | null>(null);
 
 
     useEffect(() => {
@@ -93,12 +87,9 @@ const Dialer: React.FC<DialerProps> = () => {
             }
         }
         loadAgent();
-        
-        // Preload ringing sound
-        preloadRingingSound();
     }, []);
 
-    // Sync Web Demo status with UI status and handle background noise
+    // Sync Web Demo status with UI status
     useEffect(() => {
         if (isWebConnecting) {
             setIsCalling(true);
@@ -106,19 +97,8 @@ const Dialer: React.FC<DialerProps> = () => {
         } else if (isSessionActive) {
             setIsCalling(true);
             setStatusText('Live Session Active');
-            
-            // Start background noise when session becomes active
-            if (!backgroundNoiseRef.current) {
-                const { stop } = playBackgroundNoise();
-                backgroundNoiseRef.current = stop;
-            }
         } else if (!isSessionActive && !isWebConnecting && isCalling && isWebDemo) {
              // Reset if session ends abruptly from hook side
-             // Stop background noise
-             if (backgroundNoiseRef.current) {
-                 backgroundNoiseRef.current();
-                 backgroundNoiseRef.current = null;
-             }
              setIsCalling(false);
              setStatusText('Ready');
         }
@@ -136,30 +116,13 @@ const Dialer: React.FC<DialerProps> = () => {
     };
 
     const handleCall = async () => {
-        if (isCalling || isWebConnecting || isRinging) return;
+        if (isCalling || isWebConnecting) return;
         
         // --- WEB DEMO MODE ---
         if (isWebDemo) {
              setIsCalling(true);
-             setIsRinging(true);
-             setStatusText('Ringing...');
-             
-             // Play ringing sound
-             const { promise: ringingPromise, stop: stopRinging } = playRingingSound();
-             audioStopRef.current = stopRinging;
-             
+             setStatusText('Connecting (Web)...');
              try {
-                // Wait for ringing to complete
-                await ringingPromise;
-                
-                // Clear audio ref after ringing completes
-                audioStopRef.current = null;
-                setIsRinging(false);
-                
-                // Check if call was cancelled during ringing
-                if (!isCalling) return;
-                
-                setStatusText('Connecting (Web)...');
                 // Use the Real Estate Prompt for Web Demo
                 // Voice 'Kore' is compatible with Gemini Live
                 await startSession(BEATRICE_PROMPT, undefined, 'Kore');
@@ -167,8 +130,6 @@ const Dialer: React.FC<DialerProps> = () => {
                 console.error("Web Demo Error:", e);
                 setStatusText('Connection Failed');
                 setIsCalling(false);
-                setIsRinging(false);
-                audioStopRef.current = null;
                 setTimeout(() => setStatusText('Ready'), 2000);
              }
              return;
@@ -182,26 +143,9 @@ const Dialer: React.FC<DialerProps> = () => {
         }
 
         setIsCalling(true);
-        setIsRinging(true);
-        setStatusText('Ringing...');
-        
-        // Play ringing sound
-        const { promise: ringingPromise, stop: stopRinging } = playRingingSound();
-        audioStopRef.current = stopRinging;
+        setStatusText('Initiating Call...');
         
         try {
-            // Wait for ringing to complete
-            await ringingPromise;
-            
-            // Clear audio ref after ringing completes
-            audioStopRef.current = null;
-            setIsRinging(false);
-            
-            // Check if call was cancelled during ringing
-            if (!isCalling) return;
-            
-            setStatusText('Initiating Call...');
-            
             // Ensure we have the latest agent config
             const agent = await getActiveDialerAgent() || BEATRICE_DEFAULT_AGENT;
             setActiveAgent(agent);
@@ -230,30 +174,14 @@ const Dialer: React.FC<DialerProps> = () => {
         } catch (e) {
             console.error("Failed to start call", e);
             setStatusText('Error');
-            setIsCalling(false);
-            setIsRinging(false);
-            audioStopRef.current = null;
             setTimeout(() => {
+                setIsCalling(false);
                 setStatusText('Ready');
             }, 2000);
         }
     };
     
     const handleEndCall = () => {
-        // Stop ringing sound if active
-        if (audioStopRef.current) {
-            audioStopRef.current();
-            audioStopRef.current = null;
-        }
-        
-        // Stop background noise if active
-        if (backgroundNoiseRef.current) {
-            backgroundNoiseRef.current();
-            backgroundNoiseRef.current = null;
-        }
-        
-        setIsRinging(false);
-        
         if (isWebDemo) {
             endSession();
             setIsCalling(false);
@@ -300,7 +228,7 @@ const Dialer: React.FC<DialerProps> = () => {
             {/* Main Content */}
             <div className="relative z-10 flex-grow flex flex-col items-center justify-center px-6">
                  {/* Agent Info Display (Only if not in Web Demo, or adapt if needed) */}
-                <div className={`mb-4 text-center transition-opacity duration-300 ${isWebDemo ? 'opacity-50' : 'opacity-100'}`}>
+                <div className="mb-4 text-center transition-opacity duration-300" style={{ opacity: isWebDemo ? 0.5 : 1 }}>
                     <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">Active Agent</div>
                     <div className="flex items-center gap-2 justify-center bg-gray-800/50 px-3 py-1.5 rounded-full">
                          <BrainCircuitIcon className={`w-3 h-3 ${isWebDemo ? 'text-purple-400' : 'text-blue-400'}`} />
@@ -319,7 +247,6 @@ const Dialer: React.FC<DialerProps> = () => {
                             <button 
                                 onClick={handleDelete}
                                 className="absolute right-0 p-2 text-gray-500 hover:text-white transition-colors"
-                                aria-label="Delete last digit"
                             >
                                 ⌫
                             </button>
@@ -346,7 +273,6 @@ const Dialer: React.FC<DialerProps> = () => {
                      <button
                         onClick={handleEndCall}
                         className="w-16 h-16 rounded-full flex items-center justify-center shadow-lg transition-transform hover:scale-105 active:scale-95 bg-red-600 hover:bg-red-500"
-                        aria-label="End call"
                     >
                         <PhoneIcon className="w-8 h-8 text-white transform rotate-[135deg]" />
                     </button>
@@ -354,7 +280,6 @@ const Dialer: React.FC<DialerProps> = () => {
                     <button
                         onClick={handleCall}
                         className={`w-16 h-16 rounded-full flex items-center justify-center shadow-lg transition-transform hover:scale-105 active:scale-95 ${isWebDemo ? 'bg-purple-600 hover:bg-purple-500' : 'bg-green-500 hover:bg-green-400'}`}
-                        aria-label={isWebDemo ? 'Start web demo call' : 'Place phone call'}
                     >
                          {isWebConnecting ? (
                              <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>

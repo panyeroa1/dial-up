@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { supabase } from '../services/supabaseService';
-import { SSOIcon, MailIcon, LockIcon } from './icons';
+import { GoogleIcon, MailIcon, LockIcon } from './icons';
 
 type AuthView = 'signIn' | 'signUp' | 'resetPassword';
 
@@ -133,8 +133,8 @@ const AuthPage: React.FC = () => {
                     disabled={loading}
                     className="w-full bg-eburon-bg border border-eburon-border hover:bg-white/5 text-eburon-fg font-semibold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-3"
                 >
-                    <SSOIcon className="w-5 h-5" />
-                    Sign in with SSO
+                    <GoogleIcon className="w-5 h-5" />
+                    Sign In with SSO
                 </button>
 
                 <div className="text-center mt-6 text-sm">

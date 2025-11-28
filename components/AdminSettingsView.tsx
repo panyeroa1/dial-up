@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useConfig } from '../contexts/ConfigContext';
 import { AppConfig, OllamaModel, OllamaSettings, AgentTool, Agent, ChatMessage, GroundingChunk } from '../types';
-import { ShieldIcon, SaveIcon, EyeIcon, KeyIcon, ServerIcon, ToggleOnIcon, ToggleOffIcon, LockIcon, RefreshIcon, CheckCircleIcon, ApiIcon, DatabaseIcon, DownloadIcon, UploadIcon, Trash2Icon, SSOIcon, XIcon, CodeIcon, PlusIcon, EditIcon, BrainCircuitIcon, PhoneIcon, BugIcon, TerminalIcon, PlayCircleIcon, SendIcon, CopyIcon } from './icons';
+import { ShieldIcon, SaveIcon, EyeIcon, KeyIcon, ServerIcon, ToggleOnIcon, ToggleOffIcon, LockIcon, RefreshIcon, CheckCircleIcon, ApiIcon, DatabaseIcon, DownloadIcon, UploadIcon, Trash2Icon, GoogleIcon, XIcon, CodeIcon, PlusIcon, EditIcon, BrainCircuitIcon, PhoneIcon, BugIcon, TerminalIcon, PlayCircleIcon, SendIcon, CopyIcon } from './icons';
 import * as supabaseService from '../services/supabaseService';
 import * as dataService from '../services/dataService';
 import { fetchOllamaModels } from '../services/ollamaService';
@@ -641,7 +641,7 @@ create policy "Enable all access for all users" on agent_memory for all using (t
           <TabButton id="data" label="Data Management" icon={DatabaseIcon} />
           <TabButton id="test-lab" label="Test Lab" icon={BugIcon} />
           <TabButton id="db-setup" label="Database Setup" icon={ServerIcon} />
-          <TabButton id="auth" label="Authentication" icon={SSOIcon} />
+          <TabButton id="auth" label="Authentication" icon={GoogleIcon} />
         </div>
       </div>
 
@@ -773,7 +773,6 @@ create policy "Enable all access for all users" on agent_memory for all using (t
                             value={selectedInboundAgentId}
                             onChange={(e) => setSelectedInboundAgentId(e.target.value)}
                             className="w-full bg-eburon-bg border border-eburon-border rounded-lg p-3 text-sm text-white appearance-none focus:outline-none focus:ring-2 focus:ring-eburon-accent cursor-pointer"
-                            aria-label="Select agent for inbound calls"
                         >
                             {agents.map(agent => (
                                 <option key={agent.id} value={agent.id}>
@@ -905,7 +904,6 @@ create policy "Enable all access for all users" on agent_memory for all using (t
                                         value={tempConfig.services.ollamaModel}
                                         onChange={(e) => handleServiceChange('ollamaModel', e.target.value)}
                                         className="w-full bg-eburon-bg border border-eburon-border rounded-lg p-3 text-sm text-white appearance-none focus:outline-none focus:ring-2 focus:ring-eburon-accent transition-all cursor-pointer"
-                                        aria-label="Select Ollama model"
                                     >
                                         {availableModels.map(model => (
                                             <option key={model.name} value={model.name} className="bg-eburon-panel">
@@ -1029,7 +1027,6 @@ create policy "Enable all access for all users" on agent_memory for all using (t
                                     value={toolFormData.method || 'POST'} 
                                     onChange={e => setToolFormData({...toolFormData, method: e.target.value as 'GET' | 'POST'})}
                                     className="w-full bg-eburon-bg border border-eburon-border rounded-lg p-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-eburon-accent"
-                                    aria-label="Select HTTP method"
                                 >
                                     <option value="GET">GET</option>
                                     <option value="POST">POST</option>
@@ -1097,7 +1094,6 @@ create policy "Enable all access for all users" on agent_memory for all using (t
                                         onClick={() => handleEditTool(tool)}
                                         className="p-2 hover:bg-white/10 rounded-lg text-eburon-fg/70 hover:text-white"
                                         data-tooltip="Edit"
-                                        aria-label={`Edit tool ${tool.name}`}
                                     >
                                         <EditIcon className="w-4 h-4" />
                                     </button>
@@ -1105,7 +1101,6 @@ create policy "Enable all access for all users" on agent_memory for all using (t
                                         onClick={() => handleDeleteTool(tool.id)}
                                         className="p-2 hover:bg-red-500/20 rounded-lg text-red-400"
                                         data-tooltip="Delete"
-                                        aria-label={`Delete tool ${tool.name}`}
                                     >
                                         <Trash2Icon className="w-4 h-4" />
                                     </button>
@@ -1186,7 +1181,6 @@ create policy "Enable all access for all users" on agent_memory for all using (t
                                 ref={fileInputRef}
                                 onChange={handleImportCSV}
                                 accept=".csv"
-                                aria-label="Upload CSV file"
                                 className="hidden"
                              />
                              <button 
@@ -1229,7 +1223,6 @@ create policy "Enable all access for all users" on agent_memory for all using (t
                             value={selectedTestAgentId}
                             onChange={(e) => setSelectedTestAgentId(e.target.value)}
                             className="bg-eburon-panel border border-eburon-border rounded-lg py-1.5 px-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-eburon-accent"
-                            aria-label="Select agent for testing"
                         >
                             {agents.map(agent => (
                                 <option key={agent.id} value={agent.id}>{agent.name}</option>
@@ -1239,7 +1232,6 @@ create policy "Enable all access for all users" on agent_memory for all using (t
                             onClick={clearTestSession}
                             className="p-2 rounded-lg bg-eburon-panel border border-eburon-border hover:bg-white/5 text-eburon-fg"
                             data-tooltip="Reset Session"
-                            aria-label="Reset test session"
                         >
                             <Trash2Icon className="w-4 h-4" />
                         </button>
@@ -1284,7 +1276,6 @@ create policy "Enable all access for all users" on agent_memory for all using (t
                                     onClick={handleTestSend}
                                     disabled={isTesting || !testInput.trim()}
                                     className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-eburon-fg/50 hover:text-eburon-accent disabled:opacity-50"
-                                    aria-label="Send test message"
                                 >
                                     <SendIcon className="w-4 h-4" />
                                 </button>
@@ -1385,7 +1376,7 @@ create policy "Enable all access for all users" on agent_memory for all using (t
             <section className="space-y-6 animate-fade-in max-w-4xl mx-auto">
                <div className="flex items-center justify-between">
                 <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                  <SSOIcon className="w-5 h-5 text-eburon-accent" />
+                  <GoogleIcon className="w-5 h-5 text-eburon-accent" />
                   Authentication Deployment
                 </h2>
                 <span className="text-xs text-eburon-fg/40">SSO Setup</span>
@@ -1397,7 +1388,7 @@ create policy "Enable all access for all users" on agent_memory for all using (t
                   <div>
                       <div className="flex items-center justify-between mb-4">
                           <h3 className="text-lg font-semibold text-white">Step 1: Configure Identity Provider</h3>
-                          <a href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noreferrer noopener" className="text-xs text-eburon-accent hover:underline flex items-center gap-1">
+                          <a href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noreferrer" className="text-xs text-eburon-accent hover:underline flex items-center gap-1">
                               Open Console <ApiIcon className="w-3 h-3" />
                           </a>
                       </div>
@@ -1422,7 +1413,7 @@ create policy "Enable all access for all users" on agent_memory for all using (t
                   <div>
                       <div className="flex items-center justify-between mb-4">
                           <h3 className="text-lg font-semibold text-white">Step 2: Configure Database Auth</h3>
-                          <a href="https://supabase.com/dashboard/project/_/auth/providers" target="_blank" rel="noreferrer noopener" className="text-xs text-eburon-accent hover:underline flex items-center gap-1">
+                          <a href="https://supabase.com/dashboard/project/_/auth/providers" target="_blank" rel="noreferrer" className="text-xs text-eburon-accent hover:underline flex items-center gap-1">
                               Open Dashboard <DatabaseIcon className="w-3 h-3" />
                           </a>
                       </div>

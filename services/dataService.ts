@@ -104,18 +104,9 @@ const parseTranscriptString = (transcriptStr: string): TranscriptSegment[] => {
 
 export async function initializeDataLayer(): Promise<void> {
   try {
-    // Create a promise that rejects after 3 seconds
-    const timeoutPromise = new Promise((_, reject) => 
-        setTimeout(() => reject(new Error('Database connection timeout')), 3000)
-    );
-
-    // Race the connection check against the timeout
-    const { error } = await Promise.race([
-        supabaseService.supabase
-            .from('agents')
-            .select('id', { count: 'exact', head: true }),
-        timeoutPromise
-    ]) as any;
+    const { error } = await supabaseService.supabase
+      .from('agents')
+      .select('id', { count: 'exact', head: true });
 
     if (error && (error.message.includes('network error') || error.message.includes('Failed to fetch'))) {
       throw new Error('Database network error');
