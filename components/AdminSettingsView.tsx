@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useConfig } from '../contexts/ConfigContext';
 import { AppConfig, OllamaModel, OllamaSettings, AgentTool, Agent, ChatMessage, GroundingChunk } from '../types';
-import { ShieldIcon, SaveIcon, EyeIcon, KeyIcon, ServerIcon, ToggleOnIcon, ToggleOffIcon, LockIcon, RefreshIcon, CheckCircleIcon, ApiIcon, DatabaseIcon, DownloadIcon, UploadIcon, Trash2Icon, GoogleIcon, XIcon, CodeIcon, PlusIcon, EditIcon, BrainCircuitIcon, PhoneIcon, BugIcon, TerminalIcon, PlayCircleIcon, SendIcon, CopyIcon } from './icons';
+import { ShieldIcon, SaveIcon, EyeIcon, KeyIcon, ServerIcon, ToggleOnIcon, ToggleOffIcon, LockIcon, RefreshIcon, CheckCircleIcon, ApiIcon, DatabaseIcon, DownloadIcon, UploadIcon, Trash2Icon, SSOIcon, XIcon, CodeIcon, PlusIcon, EditIcon, BrainCircuitIcon, PhoneIcon, BugIcon, TerminalIcon, PlayCircleIcon, SendIcon, CopyIcon } from './icons';
 import * as supabaseService from '../services/supabaseService';
 import * as dataService from '../services/dataService';
 import { fetchOllamaModels } from '../services/ollamaService';
@@ -641,7 +641,7 @@ create policy "Enable all access for all users" on agent_memory for all using (t
           <TabButton id="data" label="Data Management" icon={DatabaseIcon} />
           <TabButton id="test-lab" label="Test Lab" icon={BugIcon} />
           <TabButton id="db-setup" label="Database Setup" icon={ServerIcon} />
-          <TabButton id="auth" label="Authentication" icon={GoogleIcon} />
+          <TabButton id="auth" label="Authentication" icon={SSOIcon} />
         </div>
       </div>
 
@@ -1376,7 +1376,7 @@ create policy "Enable all access for all users" on agent_memory for all using (t
             <section className="space-y-6 animate-fade-in max-w-4xl mx-auto">
                <div className="flex items-center justify-between">
                 <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                  <GoogleIcon className="w-5 h-5 text-eburon-accent" />
+                  <SSOIcon className="w-5 h-5 text-eburon-accent" />
                   Authentication Deployment
                 </h2>
                 <span className="text-xs text-eburon-fg/40">SSO Setup</span>
