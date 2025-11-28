@@ -238,14 +238,17 @@ export const placeCall = async (phoneNumber: string, agent: Agent): Promise<{ su
         const payload: any = {
             "phone_number": phoneNumber,
             "voice": voiceToUse,
-            "wait_for_greeting": false,
+            // CRITICAL FIX: Set wait_for_greeting to true to ensure audio is connected before AI speaks.
+            // This prevents "I can't hear you" issues where the AI talks over the connection process.
+            "wait_for_greeting": true, 
             "record": true,
             "answered_by_enabled": true,
             "noise_cancellation": true,
-            "interruption_threshold": 150, // Lower threshold for more natural interruption
+            // Increased threshold slightly to prevent background noise from cutting off the AI
+            "interruption_threshold": 200, 
             "block_interruptions": false,
             "max_duration": 30, // 30 mins max
-            "model": agent.thinkingMode ? "enhanced" : "base",
+            "model": "enhanced", // Force enhanced for better audio processing/latency
             "language": "eng", 
             "task": promptToUse,
             "first_sentence": agent.firstSentence,
@@ -304,10 +307,10 @@ export const configureInboundCall = async (phoneNumber: string, agent: Agent): P
             "task": promptToUse,
             "first_sentence": agent.firstSentence,
             "record": true,
-            "model": agent.thinkingMode ? "enhanced" : "base",
+            "model": "enhanced",
             "tools": tools.length > 0 ? tools : undefined,
             "wait_for_greeting": true,
-            "interruption_threshold": 100,
+            "interruption_threshold": 200,
             "max_duration": 30
         };
 
