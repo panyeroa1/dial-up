@@ -48,7 +48,7 @@ export const playRingingSound = (): { promise: Promise<void>; stop: () => void }
 export const playBackgroundNoise = (): { stop: () => void; audio: HTMLAudioElement } => {
     const audio = new Audio(BACKGROUND_NOISE_URL);
     audio.loop = true; // Loop continuously
-    audio.volume = 0.3; // Lower volume for background ambience
+    audio.volume = 0.25; // 25% volume for subtle background ambience
     
     audio.play().catch((err) => {
         console.error('Error starting background noise:', err);
