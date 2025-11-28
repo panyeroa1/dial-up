@@ -9,7 +9,7 @@ import * as dataService from '../services/dataService';
 import { fetchOllamaModels } from '../services/ollamaService';
 import { configureInboundCall } from '../services/blandAiService';
 import { sendMessageStreamToGemini } from '../services/geminiService';
-import { AYLA_DEFAULT_AGENT } from '../constants';
+import { BEATRICE_DEFAULT_AGENT } from '../constants';
 
 interface TestLog {
     id: string;
@@ -46,12 +46,12 @@ const AdminSettingsView: React.FC = () => {
   // Telephony / Inbound State
   const [inboundNumber, setInboundNumber] = useState('');
   const [agents, setAgents] = useState<Agent[]>([]);
-  const [selectedInboundAgentId, setSelectedInboundAgentId] = useState<string>(AYLA_DEFAULT_AGENT.id);
+  const [selectedInboundAgentId, setSelectedInboundAgentId] = useState<string>(BEATRICE_DEFAULT_AGENT.id);
   const [inboundDeployStatus, setInboundDeployStatus] = useState<'idle' | 'deploying' | 'success' | 'error'>('idle');
   const [inboundDeployMsg, setInboundDeployMsg] = useState('');
 
   // Test Lab State
-  const [selectedTestAgentId, setSelectedTestAgentId] = useState<string>(AYLA_DEFAULT_AGENT.id);
+  const [selectedTestAgentId, setSelectedTestAgentId] = useState<string>(BEATRICE_DEFAULT_AGENT.id);
   const [testHistory, setTestHistory] = useState<ChatMessage[]>([]);
   const [testInput, setTestInput] = useState('');
   const [isTesting, setIsTesting] = useState(false);
@@ -776,7 +776,7 @@ create policy "Enable all access for all users" on agent_memory for all using (t
                         >
                             {agents.map(agent => (
                                 <option key={agent.id} value={agent.id}>
-                                    {agent.name} {agent.id === AYLA_DEFAULT_AGENT.id ? '(Default Ayla)' : ''}
+                                    {agent.name} {agent.id === BEATRICE_DEFAULT_AGENT.id ? '(Default Beatrice)' : ''}
                                 </option>
                             ))}
                         </select>

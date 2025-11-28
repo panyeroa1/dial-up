@@ -24,6 +24,14 @@ const formatSize = (bytes: number) => {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 };
 
+const formatModelName = (model: string): string => {
+    if (model.includes('gemini-2.5-flash')) return 'Eburon Flash v2.5';
+    if (model.includes('gemini-2.5-pro')) return 'Eburon Pro v2.5';
+    if (model.includes('gemma')) return 'Eburon Edge (Lite)';
+    if (model.includes('llama')) return 'Eburon Edge (Standard)';
+    return `Eburon Model (${model})`;
+};
+
 const ChatbotView: React.FC<ChatbotViewProps> = ({ setGeneratedAppHtml }) => {
     const { config } = useConfig();
     const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -288,6 +296,7 @@ const ChatbotView: React.FC<ChatbotViewProps> = ({ setGeneratedAppHtml }) => {
             const wps = durationSeconds > 0 ? Math.round(words / durationSeconds) : 0;
             const energy = ((fullText.length / 1000) * 0.005).toFixed(4);
             const tokensUsed = Math.round(fullText.length / 3.8);
+            const usedModel = aiProvider === 'ollama' ? selectedOllamaModel : (modelMode === 'thinking' ? 'gemini-2.5-pro' : 'gemini-2.5-flash');
 
             const finalModelMessage: ChatMessage = {
                 ...modelMessagePlaceholder,
@@ -297,7 +306,7 @@ const ChatbotView: React.FC<ChatbotViewProps> = ({ setGeneratedAppHtml }) => {
                     tokensUsed,
                     energy: `${energy} kWh`,
                     wps,
-                    model: aiProvider === 'ollama' ? selectedOllamaModel : modelMode
+                    model: formatModelName(usedModel)
                 }
             };
             
@@ -421,7 +430,7 @@ const ChatbotView: React.FC<ChatbotViewProps> = ({ setGeneratedAppHtml }) => {
                                 >
                                     {availableModels.map(m => (
                                         <option key={m.name} value={m.name}>
-                                            {m.name} ({formatSize(m.size)} • {m.details?.quantization_level || 'Unknown'})
+                                            {formatModelName(m.name)}
                                         </option>
                                     ))}
                                     <option value="custom">Custom Model...</option>

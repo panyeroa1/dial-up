@@ -5,7 +5,7 @@ import * as dataService from '../services/dataService';
 import { uploadAgentAvatar } from '../services/supabaseService';
 import { AgentIcon, PlusIcon, SaveIcon, PlayIcon, PauseIcon, CheckCircleIcon, Trash2Icon, ChevronLeftIcon, VoiceIcon, EditIcon, PhoneIcon, BookIcon, UploadIcon, UserIcon, XIcon, BrainCircuitIcon, CodeIcon, RefreshIcon } from './icons';
 import { LoadingIndicator } from './LoadingIndicator';
-import { VOICE_PREVIEW_CONFIG, AYLA_DEFAULT_AGENT } from '../constants';
+import { VOICE_PREVIEW_CONFIG, BEATRICE_DEFAULT_AGENT } from '../constants';
 import { PromptLibraryModal } from './PromptLibraryModal';
 
 const AgentsView: React.FC = () => {
@@ -294,8 +294,8 @@ const AgentsView: React.FC = () => {
                         <span className="font-semibold">Back to Agents</span>
                     </button>
                     <div className="flex items-center gap-2 flex-shrink-0">
-                         {/* Allow delete for any agent except default Ayla */}
-                        {selectedAgent.id !== AYLA_DEFAULT_AGENT.id && (
+                         {/* Allow delete for any agent except default Beatrice */}
+                        {selectedAgent.id !== BEATRICE_DEFAULT_AGENT.id && (
                             <button
                                 onClick={handleDeleteAgent}
                                 className="font-bold py-2 px-4 rounded-lg flex items-center gap-2 transition-colors duration-200 bg-red-800/50 hover:bg-red-800/80 text-red-200"
@@ -595,7 +595,7 @@ const AgentsView: React.FC = () => {
                                     </button>
                                 )}
                             </div>
-                             {agent.id !== AYLA_DEFAULT_AGENT.id && (
+                             {agent.id !== BEATRICE_DEFAULT_AGENT.id && (
                                 <button
                                     onClick={(e) => {
                                         e.stopPropagation();

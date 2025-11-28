@@ -1,9 +1,9 @@
 
 import { CallLog, Voice, Agent } from "../types";
-import { AYLA_PROMPT, STEPHEN_PROMPT } from "../constants";
+import { BEATRICE_PROMPT, AYLA_PROMPT, STEPHEN_PROMPT } from "../constants";
 import { getConfig } from "./configService";
 
-const EBURON_ERROR_MESSAGE = "The Eburon server encountered an error. Please try again.";
+const EBURON_ERROR_MESSAGE = "The Eburon Phone API service encountered an error. Please try again.";
 
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -219,17 +219,17 @@ export const placeCall = async (phoneNumber: string, agent: Agent): Promise<{ su
         }
 
         // Ensure we use the correct prompt based on the Agent's configuration
-        // If it's the default ID, use the hardcoded Real Estate prompt constant to be safe,
+        // If it's the default ID (now Beatrice), use the hardcoded Real Estate prompt constant to be safe,
         // otherwise use the agent's custom prompt.
         let promptToUse = agent.systemPrompt;
-        if (agent.id === 'default-ayla-agent') promptToUse = AYLA_PROMPT;
+        if (agent.id === 'default-beatrice-agent' || agent.id === 'default-ayla-agent') promptToUse = BEATRICE_PROMPT;
         
         // Handle Voice Mapping:
         // 'Kore' is a Gemini voice. For Bland AI, we need a valid Bland voice (e.g. Maya).
         // 'Puck' maps to a male voice.
         let voiceToUse = agent.voice;
         
-        if (voiceToUse === 'Kore' || agent.id === 'default-ayla-agent') {
+        if (voiceToUse === 'Kore' || agent.id === 'default-beatrice-agent' || agent.id === 'default-ayla-agent') {
             voiceToUse = 'Maya'; 
         } else if (voiceToUse === 'Puck' || agent.name.includes('Stephen')) {
             voiceToUse = 'matt'; // Example male voice
@@ -289,10 +289,10 @@ export const configureInboundCall = async (phoneNumber: string, agent: Agent): P
              }).filter(Boolean);
         }
 
-        const promptToUse = agent.id === 'default-ayla-agent' ? AYLA_PROMPT : agent.systemPrompt;
+        const promptToUse = (agent.id === 'default-beatrice-agent' || agent.id === 'default-ayla-agent') ? BEATRICE_PROMPT : agent.systemPrompt;
         
         let voiceToUse = agent.voice;
-        if (voiceToUse === 'Kore' || agent.id === 'default-ayla-agent') {
+        if (voiceToUse === 'Kore' || agent.id === 'default-beatrice-agent' || agent.id === 'default-ayla-agent') {
             voiceToUse = 'Maya'; 
         } else if (voiceToUse === 'Puck') {
             voiceToUse = 'matt';

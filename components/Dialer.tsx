@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { PhoneIcon, BrainCircuitIcon, ToggleOnIcon, ToggleOffIcon } from './icons';
 import { placeCall } from '../services/blandAiService';
 import { getActiveDialerAgent } from '../services/dataService';
-import { AYLA_DEFAULT_AGENT, AYLA_PROMPT } from '../constants';
+import { BEATRICE_DEFAULT_AGENT, BEATRICE_PROMPT } from '../constants';
 import { Agent } from '../types';
 import { useGeminiLiveAgent } from '../hooks/useGeminiLive';
 
@@ -68,7 +68,7 @@ const Dialer: React.FC<DialerProps> = () => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [statusText, setStatusText] = useState('Ready');
     const [isCalling, setIsCalling] = useState(false);
-    const [activeAgent, setActiveAgent] = useState<Agent>(AYLA_DEFAULT_AGENT);
+    const [activeAgent, setActiveAgent] = useState<Agent>(BEATRICE_DEFAULT_AGENT);
     
     // Web Demo State
     const [isWebDemo, setIsWebDemo] = useState(false);
@@ -125,7 +125,7 @@ const Dialer: React.FC<DialerProps> = () => {
              try {
                 // Use the Real Estate Prompt for Web Demo
                 // Voice 'Kore' is compatible with Gemini Live
-                await startSession(AYLA_PROMPT, undefined, 'Kore');
+                await startSession(BEATRICE_PROMPT, undefined, 'Kore');
              } catch (e: any) {
                 console.error("Web Demo Error:", e);
                 setStatusText('Connection Failed');
@@ -147,7 +147,7 @@ const Dialer: React.FC<DialerProps> = () => {
         
         try {
             // Ensure we have the latest agent config
-            const agent = await getActiveDialerAgent() || AYLA_DEFAULT_AGENT;
+            const agent = await getActiveDialerAgent() || BEATRICE_DEFAULT_AGENT;
             setActiveAgent(agent);
 
             const result = await placeCall(phoneNumber, agent);
@@ -232,7 +232,7 @@ const Dialer: React.FC<DialerProps> = () => {
                     <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">Active Agent</div>
                     <div className="flex items-center gap-2 justify-center bg-gray-800/50 px-3 py-1.5 rounded-full">
                          <BrainCircuitIcon className={`w-3 h-3 ${isWebDemo ? 'text-purple-400' : 'text-blue-400'}`} />
-                         <span className="font-semibold text-sm">{isWebDemo ? 'Ayla (Live Agent)' : activeAgent.name}</span>
+                         <span className="font-semibold text-sm">{isWebDemo ? 'Beatrice (Live Agent)' : activeAgent.name}</span>
                     </div>
                 </div>
 

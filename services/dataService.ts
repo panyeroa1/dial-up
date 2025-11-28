@@ -5,7 +5,7 @@ import * as blandAiService from './blandAiService';
 import * as geminiService from './geminiService';
 import { Agent, Voice, CallLog, TtsGeneration, ChatMessage, Feedback, AgentFeedback, LiveTranscript, CrmBooking, TranscriptSegment, AgentTool } from '../types';
 import { crmService } from './crmService';
-import { AYLA_DEFAULT_AGENT } from '../constants';
+import { BEATRICE_DEFAULT_AGENT } from '../constants';
 
 type DbMode = 'supabase' | 'indexedDB';
 let dbMode: DbMode = 'supabase'; 
@@ -182,13 +182,13 @@ export async function getAgents(): Promise<Agent[]> {
     }
 
     const isAnyDbAgentActive = agentsFromDb.some(a => a.isActiveForDialer);
-    const defaultAgentWithState = { ...AYLA_DEFAULT_AGENT, isActiveForDialer: !isAnyDbAgentActive };
+    const defaultAgentWithState = { ...BEATRICE_DEFAULT_AGENT, isActiveForDialer: !isAnyDbAgentActive };
     
     return [defaultAgentWithState, ...agentsFromDb];
 }
 
 export async function setActiveDialerAgent(agentId: string): Promise<void> {
-    if (agentId === AYLA_DEFAULT_AGENT.id) {
+    if (agentId === BEATRICE_DEFAULT_AGENT.id) {
         await deactivateActiveDialerAgent();
         return;
     }
@@ -215,7 +215,7 @@ export async function upsertAgents(agents: Agent[]): Promise<void> {
 }
 
 export async function deleteAgent(agentId: string): Promise<void> {
-    if (agentId === AYLA_DEFAULT_AGENT.id) return;
+    if (agentId === BEATRICE_DEFAULT_AGENT.id) return;
     await idbService.deleteAgentFromIdb(agentId);
     if (dbMode === 'supabase') {
         try {

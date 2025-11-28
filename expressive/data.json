@@ -1,0 +1,128 @@
+{
+  "english_us": [
+    "Like", "You know", "I mean", "Honestly", "Seriously", "Right?", "Kinda", "Sorta", "Basically", "Literally", "Anyway", "Huh?", "Oh wow", "Oh my god", "No way", "Hold on", "Come on", "For real?", "Let me think", "Gotcha", "Cool cool", "Wait what", "Dude", "Bro", "Man..."
+  ],
+  "english_uk": [
+    "Right then", "Bloody hell", "Brilliant", "Lovely", "Mate", "Cheers", "Quite right", "Hang on", "Come off it", "Fancy that", "Honestly now", "Blimey", "Well then", "Actually", "Not bad", "Proper", "You alright?", "Ta", "That’s odd", "Oh dear", "I suppose", "Mind you", "Fair enough", "Alright love"
+  ],
+  "spanish_latin_am": [
+    "Oye", "Ándale", "Vale", "Bueno", "Mira", "¿Sabes?", "¿En serio?", "Ay dios mío", "Caramba", "Híjole", "Uff", "Pues", "Claro", "No manches", "Espera", "Qué raro", "Qué bueno", "Ya ya", "Madre mía", "Qué pasa", "Hombre", "Ay qué pena", "Órale", "Hostia"
+  ],
+  "portuguese_brazil": [
+    "Nossa", "Eita", "Beleza", "Tipo assim", "Uai", "Peraí", "Sério?", "Caramba", "Meu Deus", "Mano", "Tô ligado", "Fala sério", "Que legal", "Imagina", "Pois é", "Fechou", "Tranquilo", "Né?", "Ah tá", "Valeu", "Oxe", "Deus me livre", "Top", "Falou"
+  ],
+  "portuguese_portugal": [
+    "Pois", "Estás a ver?", "Pá", "Fixe", "Ora bem", "Pronto", "Se calhar", "Olha lá", "Epá", "A sério?", "Bora", "Desculpa lá", "Tás bom?", "Nada disso", "Com certeza", "Jesus", "Espera aí", "Porreiro", "Fogo", "Chiça", "Diz lá", "Pois é", "Então vá", "Adeusinho"
+  ],
+  "french": [
+    "Eh", "Bon", "Voilà", "Alors", "Bah oui", "Bah non", "C’est ça", "Mon dieu", "Attends", "Quoi?", "Pardon?", "Sérieusement", "Incroyable", "D’accord", "Comme ça", "Mais oui", "Enfin", "Bref", "Oh là là", "Pas possible", "Voilà voilà", "Très bien", "Ben écoute", "Ça marche"
+  ],
+  "italian": [
+    "Eh", "Allora", "Mamma mia", "Dai", "Boh", "Va bene", "Capito?", "Aspetta", "Che cosa?", "Ma dai", "Per favore", "Eh sì", "Eh no", "Che bello", "Dio mio", "Piano piano", "Certo certo", "Madonna", "Guarda", "Bene bene", "Ma che dici", "Andiamo", "Ecco"
+  ],
+  "german": [
+    "Ja ja", "Genau", "Also", "Ach so", "Bitte moment", "Hm okay", "Wirklich?", "Sehr gut", "Na gut", "Ach nein", "Echt?", "Warte mal", "Oh mann", "Tja", "Doch", "Kein Problem", "Bitte schön", "Na klar", "Alles klar", "Moment bitte", "Jawohl", "Ach ja", "Naja...", "Genau richtig"
+  ],
+  "dutch_flemish": [
+    "Ja kijk", "Amai", "Allez", "Komaan", "Wacht hé", "Azo?", "Echt waar?", "Seg", "Tja", "Zot zeker", "Aja ja", "Awel", "Gij weet wel", "Hoh man", "Nee jong", "Oei", "Ja lap", "Doe normaal", "Voila", "Serieus hé", "Allé vooruit", "Chique eh", "Amai zeg"
+  ],
+  "russian": [
+    "Nu", "Koroche", "Davai", "Bozhe moi", "Seriozno?", "Slushai", "Ponyatno", "Ladno", "Konechno", "Tak", "Ooi", "Da ladno", "Podo zhdi", "Tochno", "Vau", "Aga", "Ne mozhet byt", "Nu vot", "Spasibo", "Klass", "Blin", "Kstati", "Vozmozhno", "Interesno"
+  ],
+  "ukrainian": [
+    "Tak", "Ni", "Dobre", "Chekai", "Seryozno?", "Bozhe", "Ta nu", "Slukhai", "Yak spravy?", "Zvisno", "Bud laska", "Oi", "Super", "Klass", "Mozhlyvo", "Harasd", "Tochno", "Diakuyu", "Buvai", "Ta ty sho", "Divys", "Pochekai", "Nichoho sobi", "Spokiino"
+  ],
+  "polish": [
+    "No", "Kurczę", "Masakra", "Serio?", "Weź", "Czekaj", "Wiesz", "Dokładnie", "Ojej", "Jezu", "No nie", "Słuchaj", "Spoko", "Dobra", "Aha", "No co ty", "W sumie", "Jasne", "Chodź", "Dzięki", "Fajnie", "W porządku", "Niemożliwe", "O rany"
+  ],
+  "turkish": [
+    "Yani", "Tamam", "Şey", "Hani", "Vallahi", "Cidden", "Ya", "Abi", "Abla", "Aynen", "Bir dakika", "Ha?", "Efendim?", "Yok artık", "Of ya", "Evet evet", "Yavaş yavaş", "Kolay gelsin", "Şaka mı?", "Olur olur", "Bir saniye", "Çok güzel", "Allah Allah", "İnanmıyorum", "Yapma ya"
+  ],
+  "greek": [
+    "Ela", "Ne", "Ochi", "Endaxei", "Po po", "Malaka", "Re", "Sigoura?", "Perimene", "Ti les?", "Aman", "Bravo", "Oriste", "Siga", "Lipon", "Pame", "Ti kaneis?", "Etsi", "Enta", "Kita", "Apla", "Entaxei", "Ti?", "Efharisto"
+  ],
+  "arabic_levantine": [
+    "Yalla", "Inshallah", "Wallah", "Habibi", "Habibti", "Shukran", "Aiwa", "Mashallah", "Ya salam", "Astaghfirullah", "Yaani", "Khalas", "Bas", "Tayyib", "Laish?", "Shu hada?", "Enta fahim?", "Sabr shway", "La hawla", "Tayyib yallah", "Shoofi", "Shoof", "Mash keda"
+  ],
+  "persian_farsi": [
+    "Na baba", "Vaghan?", "Bale", "Areh", "Khob", "Basheh", "Sabr kon", "Bebakhshid", "Ey val", "Joon", "Ghorbanet", "Chetori?", "Boro baba", "Akh", "Khoda", "Merci", "Hala", "Chera?", "Chi?", "Doroste", "Ghalat kardam", "Afarin", "Begoo", "Faghat"
+  ],
+  "hebrew": [
+    "Yalla", "Nu", "Sababa", "Achla", "Ken ken", "Lo lo", "Bemet?", "Yofi", "Regga", "Ma nishma?", "Tov", "Ehh", "Kapara alek", "Chaval", "Stam", "Davka", "Pashut", "Beseder", "Ta’ase li tova", "Eize keta", "Yesh", "Ahalan", "Balagan"
+  ],
+  "hindi_indian_english": [
+    "Arre yaar", "Accha", "Haan haan", "Are baba", "Thoda sa", "Bas", "Kya?", "Hmm okay", "Seriously yaar", "Theek hai", "Achha listen", "Oho", "One second", "Aiyo", "Kya baat", "Are wah", "Chal theek", "Arre nahi", "Acha acha", "Dekho", "Let me check", "Jaldi bolo", "Arre yeh kya"
+  ],
+  "urdu": [
+    "Arey yaar", "Achha", "Sahi hai", "Haan bhai", "Kya hua?", "Ruko zara", "Bas kar", "Sach mein?", "Uff Allah", "Chalo", "Theek hai", "Sunao", "Kasam se", "Dekho", "Jaldi karo", "Koi baat nahi", "Arrey wah", "Hato", "Bilkul", "Shukriya", "Janab", "Bhai", "Khuda Hafiz", "Kya baat hai"
+  ],
+  "bengali": [
+    "Aare", "Accha", "Thik ache", "Shon", "Darao", "Ki holo?", "Sotti?", "Dhur", "Bapare", "O ma", "Hae", "Na na", "Tai naki?", "Dekhi", "Cholo", "Bes", "Dhat teri", "Ki bolcho", "Aste", "Thako", "Ei je", "Onek hoyeche", "Shoro"
+  ],
+  "mandarin": [
+    "Aiya", "Aiyo", "Hao ma?", "Mei guanxi", "Shenme?", "En", "Hao hao", "Zhen de?", "Bu yao", "Deng yi xia", "Bu hui ba", "Hen hao", "Xiexie ah", "Keyi keyi", "Wo kan kan", "Hao la", "Bu cuo", "Qing wen", "Shi ma?", "Zeme yang?", "Ai yo", "Meiyou ba"
+  ],
+  "japanese": [
+    "Ano", "Eto", "Hai", "Sou desu ne", "Ee?", "Chotto matte", "Honto ni?", "Ehh", "Maa maa", "Yappari", "Ara", "Sou ka", "Gomen", "Daijoubu", "Sugoi", "Kawaii", "Maji de", "Ne", "Wakatta", "Yada", "Arigato ne", "Hee...", "Aaa sou"
+  ],
+  "korean": [
+    "Ah", "Yah", "Aigoo", "Jinjja?", "Daebak", "Omo omo", "Hajima", "Wae?", "Arasseo", "Jamkkan", "Aish", "Geurae", "Molla", "Ne ne", "Ani ani", "Heol", "Geunde", "Jeongmal", "Hajiman", "Wah", "Aigo", "Eyyyy", "Ahh geuraeyo?"
+  ],
+  "filipino_tagalog": [
+    "Ah ganun?", "Ano ba", "Wait lang", "Ay naku", "Grabe naman", "Seryoso?", "Susmaryosep", "Parang", "Alam mo yun", "Diba", "Medyo ano", "Kumusta naman", "Ayyy sorry po", "Naks naman", "Sandali lang", "Pasensya na", "Ay oo nga", "Hindi ah", "Syempre naman", "Hala uy", "Ewan ko sayo", "Promise ha", "Charot", "Loko ka"
+  ],
+  "vietnamese": [
+    "Trời ơi", "Cái gì?", "Khoan đã", "Thiệt hả?", "Vâng", "Dạ", "Thôi đi", "À nè", "Đúng rồi", "Hả?", "Chán ghê", "Ê này", "Được thôi", "Cố lên", "Không sao", "Biết rồi", "Từ từ", "Ôi chao", "Ừm", "Cảm ơn", "Vãi", "Alo", "Ok luôn", "Tuyệt vời"
+  ],
+  "thai": [
+    "Jing lor?", "Chai", "Mai chai", "Ao", "Oii", "Deow na", "Krup/Ka", "555", "Arai na?", "Jing di", "Kor tode", "Sabai sabai", "Na", "Ok na", "Plao", "Chai mai", "Su su", "Ma", "Mai pen rai", "Ummm", "Laew gor", "Diao", "Jing ah"
+  ],
+  "indonesian": [
+    "Lho", "Kok", "Masa sih?", "Bentar", "Aduh", "Ya ampun", "Gimana ya", "Oke deh", "Siap", "Beneran?", "Waduh", "Sabar", "Santai aja", "Gak apa-apa", "Eh", "Nah", "Tuh kan", "Ih", "Mantap", "Yuk", "Boleh", "Astaga", "Serius?", "Anjay"
+  ],
+  "malay": [
+    "Lah", "Betul ke?", "Jom", "Sat", "Aduh", "Alamak", "Biar betul", "Tak pe", "Boleh lah", "Ye ke?", "Macam mana?", "Okay kot", "Tunggu jap", "Halamak", "Mestilah", "Habis tu?", "Amboi", "Rilek lah", "Serius ah?", "Tahu tak", "Cun", "Best gila", "Tengok lah"
+  ],
+  "swahili": [
+    "Sawa", "Hapana", "Kweli?", "Ngoja", "Basi", "Asante", "Pole", "Haraka", "Sikiliza", "Jamani", "Hebu", "Sawa sawa", "Hamna shida", "Acha", "Twende", "Kumbe", "Oya", "Salama", "Ndiyo", "Haya", "Poa", "Safi", "Karibu", "Mambo"
+  ],
+  "swedish": [
+    "Jaha", "Okej då", "Asså", "Liksom", "Typ", "Nämen", "Precis", "Eller hur", "Men gud", "Oj oj", "Ja ja", "Nej nej", "Aha okej", "Va?", "Alltså seriöst", "Vänta lite", "Inte riktigt", "Faktiskt", "Jahapp", "Herregud", "Skitsamma", "Jodå", "Nähä"
+  ],
+  "norwegian": [
+    "Ja ja", "Nei nei", "Ikke sant?", "Liksom", "Okei da", "Herregud", "Hæ?", "Jaha", "Vent litt", "Seriøst?", "Fy søren", "Å herlighet", "På ekte", "Nemlig", "Greit nok", "Egentlig", "Javel", "Oi oi", "Hmm ja", "Slapp av", "La meg se", "Jo da", "Ja vel ja"
+  ],
+  "danish": [
+    "Altså", "Okay så", "Hva’ så?", "Seriøst?", "Øh", "Hmm ja", "Nå nå", "For fanden", "Ej stop", "Vent lige", "Hold da op", "Hva' mener du?", "Det går", "Ikke helt", "Ej men altså", "Nå ja", "Det er fint", "Ja ja", "Rolig nu", "Det siger du ikke", "Arh okay", "Hva' nu det?"
+  ],
+  "finnish": [
+    "No niin", "Joo joo", "Ai jaa", "Öö", "Siis", "Aivan", "Hetkinen", "Anteeksi mitä?", "Okei okei", "Hmm jep", "Kyllä kyllä", "Ei ei", "Niinkö?", "Ahaa", "Vai niin", "Noniin sehän", "Ihan totta?", "Oho", "Mitä ihmettä", "Hetki vain", "Jaa-a", "Näin se on"
+  ],
+  "icelandic": [
+    "Jæja", "Já já", "Nei nei", "Hvað meinarðu?", "Allt í lagi", "Bíddu aðeins", "Hæ?", "Úff", "Ókei", "Vá", "Ég skil", "Jamm", "Humm", "Nei hættu", "Alvöru?", "Sko", "Jæja nú", "Allavega", "Já helvíti", "Svei mér þá"
+  ],
+  "czech": [
+    "No jo", "No ne", "Tak počkej", "Cože?", "Fakt?", "Ty jo", "No tak", "V pohodě", "Počkej chvíli", "Dobře dobře", "Jasně", "Není zač", "Ale no tak", "Co to je?", "To snad ne", "Ježiši", "No dobře", "Tak jo", "Nějak tak", "Hele", "No právě"
+  ],
+  "slovak": [
+    "Hej hej", "No dobre", "Počkaj chvíľu", "Fakt?", "Čože?", "Do kelu", "No jasné", "Ale prosím ťa", "Poď sem", "Tak počkaj", "Presne tak", "No vidíš", "Dobre teda", "Nevadí", "Vážne?", "Nemyslíš vážne", "Tak nič", "No dobre dobre", "Ako chceš", "Veď hej"
+  ],
+  "hungarian": [
+    "Jó jó", "Na jó", "Hát persze", "Várj csak", "Komolyan?", "Tényleg?", "Hát igen", "Jajj ne", "Egy pillanat", "Hűha", "Mit csinálsz?", "Na tessék", "Hát ez az", "Oké oké", "Nem hiszem el", "Jó van", "Na mindegy", "Jó ég", "Mi van?", "Hát jó"
+  ],
+  "romanian": [
+    "Da da", "Nu nu", "Serios?", "Hai mă", "Stai puțin", "Ce?", "Doamne", "Aoleu", "Bine bine", "Gata gata", "Măi frate", "Pe bune?", "Ce faci?", "Nu cred", "Un pic", "Perfect", "Așa", "Hai că merge", "E ok", "Nu e problemă"
+  ],
+  "bulgarian": [
+    "Да бе", "Айде де", "Чакай малко", "Сериозно?", "Абе ти нормален ли си?", "Добре добре", "Ох боже", "Ееее", "Я стига", "Какво?", "Браво бе", "Не мога", "Ей така", "Спокойно", "Горкичкия", "Айде моля ти се", "Няма проблем", "Как така?", "Да да", "Леле мале"
+  ],
+  "serbian": [
+    "Alo bre", "Ma daj", "Čekaj malo", "Ozbiljno?", "Majko mila", "Ajde dobro", "Šta?", "Ma nema veze", "Ajde bre", "Daj molim te", "Jaooo", "Nije moguće", "Ma naravno", "Ok ok", "Baš tako", "Nema problema", "Aha dobro", "Vidim ja", "Što bre?", "Ma ne zezaj"
+  ],
+  "croatian": [
+    "Ma daj", "Čekaj malo", "Ozbiljno?", "Ajme meni", "Ma ne", "Dobro dobro", "Šta je sad?", "Ajde molim te", "Pa naravno", "Ajde onda", "Nemoguće", "Aha oke", "Nema frke", "Ajd super", "Čuj mene", "Točno tako", "Pa da", "Ajme", "Uf dobro", "Pa naravno"
+  ],
+  "bosnian": [
+    "Ma jok", "Evo brate", "Čekaj sekund", "Jesi normalan?", "Čuj to", "Ma daj", "Ozbiljno ba?", "Alo bolan", "Dobro dobro", "Nemoj zezati", "Jao ba", "Pa šta onda", "Ajmo dalje", "Nema veze", "Fakat?", "Vala baš", "Šta ima?", "De bolan", "Neka neka", "Ma kako da ne"
+  ]
+}
