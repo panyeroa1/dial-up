@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { PhoneIcon, BrainCircuitIcon, ToggleOnIcon, ToggleOffIcon } from './icons';
 import { placeCall } from '../services/blandAiService';
 import { getActiveDialerAgent } from '../services/dataService';
-import { BEATRICE_DEFAULT_AGENT, BEATRICE_PROMPT } from '../constants';
+import { BEATRICE_DEFAULT_AGENT, BEATRICE_PROMPT, AUDIO_ASSETS } from '../constants';
 import { Agent } from '../types';
 import { useGeminiLiveAgent } from '../hooks/useGeminiLive';
 
@@ -68,12 +68,16 @@ const Dialer: React.FC<DialerProps> = () => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [statusText, setStatusText] = useState('Ready');
     const [isCalling, setIsCalling] = useState(false);
+    const [isRinging, setIsRinging] = useState(false);
     const [activeAgent, setActiveAgent] = useState<Agent>(BEATRICE_DEFAULT_AGENT);
     
     // Web Demo State
     const [isWebDemo, setIsWebDemo] = useState(false);
     const { startSession, endSession, isSessionActive, isConnecting: isWebConnecting } = useGeminiLiveAgent();
 
+    // Refs for Ringing Logic
+    const ringingAudioRef = useRef<HTMLAudioElement | null>(null);
+    const ringingTimeoutRef = useRef<number | null>(null);
 
     useEffect(() => {
         const loadAgent = async () => {
@@ -87,6 +91,11 @@ const Dialer: React.FC<DialerProps> = () => {
             }
         }
         loadAgent();
+
+        // Cleanup on unmount
+        return () => {
+             stopRinging();
+        }
     }, []);
 
     // Sync Web Demo status with UI status
@@ -97,12 +106,12 @@ const Dialer: React.FC<DialerProps> = () => {
         } else if (isSessionActive) {
             setIsCalling(true);
             setStatusText('Live Session Active');
-        } else if (!isSessionActive && !isWebConnecting && isCalling && isWebDemo) {
+        } else if (!isSessionActive && !isWebConnecting && isCalling && isWebDemo && !isRinging) {
              // Reset if session ends abruptly from hook side
              setIsCalling(false);
              setStatusText('Ready');
         }
-    }, [isSessionActive, isWebConnecting, isWebDemo, isCalling]);
+    }, [isSessionActive, isWebConnecting, isWebDemo, isCalling, isRinging]);
 
 
     const handleDialpadInput = (char: string) => {
@@ -115,12 +124,23 @@ const Dialer: React.FC<DialerProps> = () => {
         setPhoneNumber(p => p.slice(0, -1));
     };
 
-    const handleCall = async () => {
-        if (isCalling || isWebConnecting) return;
+    const stopRinging = () => {
+        if (ringingAudioRef.current) {
+            ringingAudioRef.current.pause();
+            ringingAudioRef.current = null;
+        }
+        if (ringingTimeoutRef.current) {
+            clearTimeout(ringingTimeoutRef.current);
+            ringingTimeoutRef.current = null;
+        }
+        setIsRinging(false);
+    };
+
+    const executeConnection = async () => {
+        setIsRinging(false);
         
         // --- WEB DEMO MODE ---
         if (isWebDemo) {
-             setIsCalling(true);
              setStatusText('Connecting (Web)...');
              try {
                 // Use the Real Estate Prompt for Web Demo
@@ -136,13 +156,6 @@ const Dialer: React.FC<DialerProps> = () => {
         }
 
         // --- STANDARD PHONE CALL MODE ---
-        if (!phoneNumber) {
-            setStatusText('Enter Number');
-            setTimeout(() => setStatusText('Ready'), 2000);
-            return;
-        }
-
-        setIsCalling(true);
         setStatusText('Initiating Call...');
         
         try {
@@ -180,8 +193,40 @@ const Dialer: React.FC<DialerProps> = () => {
             }, 2000);
         }
     };
+
+    const handleCall = () => {
+        if (isCalling || isWebConnecting || isRinging) return;
+
+        if (!isWebDemo && !phoneNumber) {
+            setStatusText('Enter Number');
+            setTimeout(() => setStatusText('Ready'), 2000);
+            return;
+        }
+
+        setIsCalling(true);
+        setIsRinging(true);
+        setStatusText('Ringing...');
+
+        // Start Ringing Audio
+        ringingAudioRef.current = new Audio(AUDIO_ASSETS.ring);
+        ringingAudioRef.current.loop = true;
+        ringingAudioRef.current.play().catch(e => console.error("Audio play failed", e));
+
+        // Set 9 second delay
+        ringingTimeoutRef.current = window.setTimeout(() => {
+            stopRinging();
+            executeConnection();
+        }, 9000);
+    };
     
     const handleEndCall = () => {
+        if (isRinging) {
+            stopRinging();
+            setIsCalling(false);
+            setStatusText('Ready');
+            return;
+        }
+
         if (isWebDemo) {
             endSession();
             setIsCalling(false);
@@ -281,7 +326,7 @@ const Dialer: React.FC<DialerProps> = () => {
                         onClick={handleCall}
                         className={`w-16 h-16 rounded-full flex items-center justify-center shadow-lg transition-transform hover:scale-105 active:scale-95 ${isWebDemo ? 'bg-purple-600 hover:bg-purple-500' : 'bg-green-500 hover:bg-green-400'}`}
                     >
-                         {isWebConnecting ? (
+                         {isWebConnecting || isRinging ? (
                              <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
                          ) : (
                              <PhoneIcon className="w-8 h-8 text-white" />

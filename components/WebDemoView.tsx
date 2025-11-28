@@ -342,7 +342,7 @@ const WebDemoView: React.FC<WebDemoViewProps> = ({ template, onEndDemo }) => {
                     console.error("Failed to generate/play IVR audio", e);
                     setCallState('error');
                 }
-            }, 8000); 
+            }, 9000); 
             callTimersRef.current.push(ringTimer);
         }, 1500);
         callTimersRef.current.push(dialingTimer);
