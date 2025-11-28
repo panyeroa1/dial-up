@@ -427,6 +427,7 @@ const ChatbotView: React.FC<ChatbotViewProps> = ({ setGeneratedAppHtml }) => {
                                     onChange={(e) => setSelectedOllamaModel(e.target.value)}
                                     className="bg-eburon-panel border border-eburon-border rounded-lg py-1 pl-2 pr-8 text-xs text-eburon-fg/80 focus:outline-none focus:border-eburon-accent cursor-pointer max-w-[200px] truncate"
                                     disabled={!isOllamaAvailable || isLoadingModels}
+                                    aria-label="Select Eburon Edge model"
                                 >
                                     {availableModels.map(m => (
                                         <option key={m.name} value={m.name}>
@@ -477,6 +478,7 @@ const ChatbotView: React.FC<ChatbotViewProps> = ({ setGeneratedAppHtml }) => {
                         onClick={handleClearChat} 
                         className="p-2 rounded-lg hover:bg-white/10 text-eburon-fg/60 hover:text-red-400 transition-colors" 
                         data-tooltip="Clear History"
+                        aria-label="Clear chat history"
                     >
                         <Trash2Icon className="w-5 h-5" />
                     </button>
@@ -498,6 +500,7 @@ const ChatbotView: React.FC<ChatbotViewProps> = ({ setGeneratedAppHtml }) => {
                                     onClick={() => setUseSearchGrounding(!useSearchGrounding)}
                                     className={`p-2 rounded-lg transition-colors ${useSearchGrounding ? 'text-eburon-accent bg-eburon-accent/10 border border-eburon-accent/30' : 'text-eburon-fg/60 hover:text-white hover:bg-white/10'}`}
                                     data-tooltip={useSearchGrounding ? "Search: ON" : "Search: OFF"}
+                                    aria-label={useSearchGrounding ? "Disable search grounding" : "Enable search grounding"}
                                 >
                                     <SearchIcon className="w-5 h-5" />
                                 </button>
@@ -507,6 +510,7 @@ const ChatbotView: React.FC<ChatbotViewProps> = ({ setGeneratedAppHtml }) => {
                                     onClick={() => setUseMapsGrounding(!useMapsGrounding)}
                                     className={`p-2 rounded-lg transition-colors ${useMapsGrounding ? 'text-eburon-accent bg-eburon-accent/10 border border-eburon-accent/30' : 'text-eburon-fg/60 hover:text-white hover:bg-white/10'}`}
                                     data-tooltip={useMapsGrounding ? "Maps: ON" : "Maps: OFF"}
+                                    aria-label={useMapsGrounding ? "Disable maps grounding" : "Enable maps grounding"}
                                 >
                                     <GlobeIcon className="w-5 h-5" />
                                 </button>
@@ -517,6 +521,7 @@ const ChatbotView: React.FC<ChatbotViewProps> = ({ setGeneratedAppHtml }) => {
                         onClick={() => setIsDeveloperMode(!isDeveloperMode)}
                         className={`p-2 rounded-lg transition-colors ${isDeveloperMode ? 'text-eburon-accent bg-eburon-accent/10' : 'text-eburon-fg/60 hover:text-white hover:bg-white/10'}`}
                         data-tooltip={isDeveloperMode ? "Dev Mode: ON" : "Dev Mode: OFF"}
+                        aria-label={isDeveloperMode ? "Disable developer mode" : "Enable developer mode"}
                     >
                         <CodeIcon className="w-5 h-5" />
                     </button>
@@ -623,6 +628,7 @@ const ChatbotView: React.FC<ChatbotViewProps> = ({ setGeneratedAppHtml }) => {
                             onClick={removeImage} 
                             className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-0.5 shadow-md hover:scale-110 transition-transform"
                             data-tooltip="Remove Image"
+                            aria-label="Remove attached image"
                         >
                             <XIcon className="w-3 h-3" />
                         </button>
@@ -654,11 +660,13 @@ const ChatbotView: React.FC<ChatbotViewProps> = ({ setGeneratedAppHtml }) => {
                         onChange={handleImageChange}
                         ref={fileInputRef}
                         className="hidden"
+                        aria-label="Upload image file"
                     />
                     <button 
                         onClick={() => fileInputRef.current?.click()} 
                         className="p-3 text-eburon-fg/50 hover:text-eburon-accent hover:bg-white/5 rounded-xl transition-all flex-shrink-0"
                         data-tooltip="Upload Image"
+                        aria-label="Upload image"
                     >
                         <PaperclipIcon className="w-5 h-5" />
                     </button>
@@ -676,11 +684,11 @@ const ChatbotView: React.FC<ChatbotViewProps> = ({ setGeneratedAppHtml }) => {
                         className="flex-1 bg-transparent focus:outline-none px-2 py-3 max-h-32 min-h-[44px] resize-none text-sm text-white placeholder-eburon-fg/30"
                         disabled={isLoading}
                         rows={1}
-                        style={{ height: 'auto', minHeight: '44px' }}
                         onInput={(e) => {
                             const target = e.target as HTMLTextAreaElement;
                             target.style.height = 'auto';
-                            target.style.height = `${Math.min(target.scrollHeight, 128)}px`;
+                            const newHeight = Math.min(target.scrollHeight, 128);
+                            target.style.height = `${newHeight}px`;
                         }}
                     />
 
@@ -698,6 +706,7 @@ const ChatbotView: React.FC<ChatbotViewProps> = ({ setGeneratedAppHtml }) => {
                             disabled={isLoading || (!input.trim() && !imageFile)} 
                             className="p-3 rounded-xl bg-eburon-accent text-white disabled:bg-eburon-panel disabled:text-eburon-fg/20 transition-all shadow-lg hover:shadow-glow hover:scale-105 disabled:hover:scale-100 disabled:shadow-none"
                             data-tooltip="Send"
+                            aria-label="Send message"
                         >
                             <SendIcon className="w-5 h-5" />
                         </button>

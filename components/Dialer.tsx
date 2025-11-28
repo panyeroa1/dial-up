@@ -6,7 +6,7 @@ import { getActiveDialerAgent } from '../services/dataService';
 import { BEATRICE_DEFAULT_AGENT, BEATRICE_PROMPT } from '../constants';
 import { Agent } from '../types';
 import { useGeminiLiveAgent } from '../hooks/useGeminiLive';
-import { playRingingSound, preloadRingingSound } from '../services/audioPlayerService';
+import { playRingingSound, preloadRingingSound, playBackgroundNoise } from '../services/audioPlayerService';
 
 interface DialerProps {}
 
@@ -76,8 +76,9 @@ const Dialer: React.FC<DialerProps> = () => {
     const [isWebDemo, setIsWebDemo] = useState(false);
     const { startSession, endSession, isSessionActive, isConnecting: isWebConnecting } = useGeminiLiveAgent();
     
-    // Audio cleanup ref
+    // Audio cleanup refs
     const audioStopRef = useRef<(() => void) | null>(null);
+    const backgroundNoiseRef = useRef<(() => void) | null>(null);
 
 
     useEffect(() => {
@@ -97,7 +98,7 @@ const Dialer: React.FC<DialerProps> = () => {
         preloadRingingSound();
     }, []);
 
-    // Sync Web Demo status with UI status
+    // Sync Web Demo status with UI status and handle background noise
     useEffect(() => {
         if (isWebConnecting) {
             setIsCalling(true);
@@ -105,8 +106,19 @@ const Dialer: React.FC<DialerProps> = () => {
         } else if (isSessionActive) {
             setIsCalling(true);
             setStatusText('Live Session Active');
+            
+            // Start background noise when session becomes active
+            if (!backgroundNoiseRef.current) {
+                const { stop } = playBackgroundNoise();
+                backgroundNoiseRef.current = stop;
+            }
         } else if (!isSessionActive && !isWebConnecting && isCalling && isWebDemo) {
              // Reset if session ends abruptly from hook side
+             // Stop background noise
+             if (backgroundNoiseRef.current) {
+                 backgroundNoiseRef.current();
+                 backgroundNoiseRef.current = null;
+             }
              setIsCalling(false);
              setStatusText('Ready');
         }
@@ -232,6 +244,12 @@ const Dialer: React.FC<DialerProps> = () => {
         if (audioStopRef.current) {
             audioStopRef.current();
             audioStopRef.current = null;
+        }
+        
+        // Stop background noise if active
+        if (backgroundNoiseRef.current) {
+            backgroundNoiseRef.current();
+            backgroundNoiseRef.current = null;
         }
         
         setIsRinging(false);
