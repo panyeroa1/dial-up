@@ -138,7 +138,7 @@ export const useGeminiLiveAgent = () => {
         try {
             const apiKey = process.env.API_KEY;
             if (!apiKey) {
-                throw new Error("Gemini API Key not found. Please ensure process.env.API_KEY is set.");
+                throw new Error("Eburon Cloud Key not found. Please ensure process.env.API_KEY is set.");
             }
             
             aiRef.current = new GoogleGenAI({ apiKey });
@@ -149,7 +149,7 @@ export const useGeminiLiveAgent = () => {
             // Input context (recording)
             inputAudioContextRef.current = new AudioContextClass({ sampleRate: AUDIO_SAMPLE_RATE });
             
-            // Output context (playback) - Gemini usually returns 24kHz
+            // Output context (playback) - Eburon Cloud usually returns 24kHz
             outputAudioContextRef.current = new AudioContextClass({ sampleRate: MODEL_SAMPLE_RATE });
 
             // Get Microphone Stream
@@ -164,7 +164,7 @@ export const useGeminiLiveAgent = () => {
             });
             mediaStreamRef.current = stream;
 
-            // Gemini Session Config
+            // Eburon Session Config
             const config: any = {
                 responseModalities: [Modality.AUDIO],
                 speechConfig: { 
@@ -179,13 +179,13 @@ export const useGeminiLiveAgent = () => {
                 config.tools = tools;
             }
 
-            // Connect to Gemini Live
+            // Connect to Eburon Cloud Live
             sessionPromiseRef.current = aiRef.current.live.connect({
                 model: 'gemini-2.5-flash-native-audio-preview-09-2025',
                 config: config,
                 callbacks: {
                     onopen: () => {
-                        console.log("Gemini Live Session Opened");
+                        console.log("Eburon Live Session Opened");
                         setIsConnecting(false);
                         setIsSessionActive(true);
                         
@@ -252,7 +252,7 @@ export const useGeminiLiveAgent = () => {
                                 });
                             }
 
-                            // Send response back to Gemini
+                            // Send response back to Eburon
                              sessionPromiseRef.current?.then((session: any) => {
                                 session.sendToolResponse({
                                     functionResponses: functionResponses
@@ -289,11 +289,11 @@ export const useGeminiLiveAgent = () => {
                         }
                     },
                     onclose: (e: CloseEvent) => {
-                        console.log("Gemini Live Session Closed", e);
+                        console.log("Eburon Live Session Closed", e);
                         cleanup();
                     },
                     onerror: (e: ErrorEvent) => {
-                        console.error("Gemini Live Error", e);
+                        console.error("Eburon Live Error", e);
                         setError(`Session error: ${e.message}`);
                         cleanup();
                     }

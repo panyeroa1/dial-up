@@ -109,13 +109,13 @@ export async function initializeDataLayer(): Promise<void> {
       .select('id', { count: 'exact', head: true });
 
     if (error && (error.message.includes('network error') || error.message.includes('Failed to fetch'))) {
-      throw new Error('Supabase network error');
+      throw new Error('Database network error');
     }
     
-    console.log('Supabase connection successful. Using online mode.');
+    console.log('Database connection successful. Using online mode.');
     dbMode = 'supabase';
   } catch (e) {
-    console.warn('Supabase connection failed. Falling back to IndexedDB for this session.', (e as Error).message);
+    console.warn('Database connection failed. Falling back to IndexedDB for this session.', (e as Error).message);
     dbMode = 'indexedDB';
   }
   
@@ -173,7 +173,7 @@ export async function getAgents(): Promise<Agent[]> {
             idbService.upsertAgentsToIdb(mergedAgents).catch(err => console.error("Failed to cache agents:", err));
             agentsFromDb = mergedAgents;
         } catch (error) {
-            console.error("Supabase failed to get agents, falling back to IDB", (error as Error).message);
+            console.error("Database failed to get agents, falling back to IDB", (error as Error).message);
             dbMode = 'indexedDB';
             agentsFromDb = await idbService.getAgentsFromIdb();
         }
@@ -209,7 +209,7 @@ export async function upsertAgents(agents: Agent[]): Promise<void> {
         try {
             await supabaseService.upsertAgentsToSupabase(agents);
         } catch (error) {
-            console.error("Supabase failed to upsert agents", (error as Error).message);
+            console.error("Database failed to upsert agents", (error as Error).message);
         }
     }
 }
@@ -221,7 +221,7 @@ export async function deleteAgent(agentId: string): Promise<void> {
         try {
             await supabaseService.deleteAgentFromSupabase(agentId);
         } catch (error) {
-            console.error("Supabase failed to delete agent", (error as Error).message);
+            console.error("Database failed to delete agent", (error as Error).message);
         }
     }
 }
@@ -235,7 +235,7 @@ export async function getVoices(): Promise<Voice[]> {
             try {
                 customTagsMap = await supabaseService.getCustomVoiceTags();
             } catch (e) {
-                console.warn("Could not fetch custom tags from Supabase.", e);
+                console.warn("Could not fetch custom tags from Database.", e);
             }
         }
         
@@ -270,7 +270,7 @@ export async function updateVoiceTags(voiceUuid: string, newTags: string[]): Pro
         try {
             await supabaseService.updateCustomVoiceTags(voiceUuid, customTags);
         } catch (error) {
-            console.error("Supabase failed to update voice tags", (error as Error).message);
+            console.error("Database failed to update voice tags", (error as Error).message);
             throw error;
         }
     }
@@ -323,7 +323,7 @@ export async function getCallLogs(): Promise<CallLog[]> {
         await upsertCallLogs(filteredLogs);
         return filteredLogs;
     } catch (apiError) {
-        console.warn("Failed to fetch logs from Bland AI API, checking cache/CSV...", (apiError as Error).message);
+        console.warn("Failed to fetch logs from Phone API, checking cache/CSV...", (apiError as Error).message);
         
         let logs = await idbService.getCallLogsFromIdb();
         if (logs && logs.length > 0) {
@@ -347,7 +347,7 @@ export async function upsertCallLogs(logs: CallLog[]): Promise<void> {
         try {
             await supabaseService.upsertCallLogsToSupabase(logs);
         } catch (error) {
-            console.error("Supabase failed to upsert call logs", (error as Error).message);
+            console.error("Database failed to upsert call logs", (error as Error).message);
         }
     }
 }
@@ -358,7 +358,7 @@ export async function clearCallLogs(): Promise<void> {
         try {
             await supabaseService.clearCallLogsFromSupabase();
         } catch (error) {
-            console.error("Supabase failed to clear call logs", (error as Error).message);
+            console.error("Database failed to clear call logs", (error as Error).message);
             throw error;
         }
     }
@@ -372,7 +372,7 @@ export async function getTtsGenerations(): Promise<TtsGeneration[]> {
              await idbService.upsertTtsGenerationsToIdb(remoteData); // cache locally
              return remoteData;
         } catch (error) {
-            console.error("Failed to fetch TTS generations from Supabase, falling back to IDB", error);
+            console.error("Failed to fetch TTS generations from Database, falling back to IDB", error);
             return idbService.getTtsGenerationsFromIdb();
         }
     }
@@ -407,7 +407,7 @@ export async function saveTtsGeneration(input_text: string, audioBlob: Blob): Pr
             
             return remoteRecord;
         } catch (error) {
-            console.error("Failed to sync TTS generation to Supabase:", error);
+            console.error("Failed to sync TTS generation to Database:", error);
             // Return local record if sync fails, so UI still works temporarily
         }
     }
@@ -423,7 +423,7 @@ export async function getChatbotMessages(): Promise<ChatMessage[]> {
             await idbService.upsertChatbotMessagesToIdb(remoteMessages);
             return remoteMessages;
         } catch (error) {
-             console.error("Failed to fetch Chat history from Supabase, falling back to IDB", error);
+             console.error("Failed to fetch Chat history from Database, falling back to IDB", error);
              return idbService.getChatbotMessagesFromIdb();
         }
     }
@@ -436,7 +436,7 @@ export async function saveChatMessage(message: ChatMessage): Promise<void> {
         try {
             await supabaseService.upsertChatbotMessageToSupabase(message);
         } catch (error) {
-            console.error("Failed to sync chat message to Supabase", error);
+            console.error("Failed to sync chat message to Database", error);
         }
     }
 }
@@ -447,7 +447,7 @@ export async function clearChatbotMessages(): Promise<void> {
         try {
             await supabaseService.clearChatbotMessagesFromSupabase();
         } catch (error) {
-            console.error("Failed to clear chat history from Supabase", error);
+            console.error("Failed to clear chat history from Database", error);
         }
     }
 }
@@ -461,7 +461,7 @@ export async function submitFeedback(feedbackText: string): Promise<void> {
     };
     await idbService.upsertFeedbackToIdb([newFeedback]);
     if (dbMode === 'supabase') {
-        supabaseService.saveFeedbackToSupabase(feedbackText).catch(err => console.error("Failed to sync feedback to Supabase:", err));
+        supabaseService.saveFeedbackToSupabase(feedbackText).catch(err => console.error("Failed to sync feedback to Database:", err));
     }
 }
 
@@ -481,7 +481,7 @@ export async function submitAgentFeedback(
     };
     await idbService.upsertAgentFeedbackToIdb([newFeedback]);
     if (dbMode === 'supabase') {
-        supabaseService.saveAgentFeedbackToSupabase(newFeedback).catch(err => console.error("Failed to sync agent feedback to Supabase:", err));
+        supabaseService.saveAgentFeedbackToSupabase(newFeedback).catch(err => console.error("Failed to sync agent feedback to Database:", err));
     }
 }
 
@@ -492,7 +492,7 @@ export async function getCrmBookings(): Promise<CrmBooking[]> {
              // Assuming we sync CRM data to Supabase table `crm_bookings`
              return await supabaseService.getCrmBookingsFromSupabase();
         } catch (error) {
-             console.warn("Supabase CRM fetch failed, checking fallback", error);
+             console.warn("Database CRM fetch failed, checking fallback", error);
              // Fallback to crmService's internal/mock data for now if API fails or isn't set up
              return crmService.getBookings();
         }
@@ -506,7 +506,7 @@ export async function createCrmBooking(booking: CrmBooking): Promise<CrmBooking>
         try {
             await supabaseService.upsertCrmBookingToSupabase(booking);
         } catch (e) {
-            console.error("Failed to sync CRM creation to Supabase", e);
+            console.error("Failed to sync CRM creation to Database", e);
         }
     }
     return result;
@@ -518,7 +518,7 @@ export async function updateCrmBooking(pnr: string, updates: Partial<CrmBooking>
         try {
             await supabaseService.upsertCrmBookingToSupabase(result);
         } catch (e) {
-             console.error("Failed to sync CRM update to Supabase", e);
+             console.error("Failed to sync CRM update to Database", e);
         }
     }
     return result;
@@ -530,7 +530,7 @@ export async function deleteCrmBooking(pnr: string): Promise<void> {
          try {
             await supabaseService.deleteCrmBookingFromSupabase(pnr);
          } catch (e) {
-              console.error("Failed to sync CRM deletion to Supabase", e);
+              console.error("Failed to sync CRM deletion to Database", e);
          }
     }
 }
@@ -543,7 +543,7 @@ export async function getTools(): Promise<AgentTool[]> {
              await idbService.upsertToolsToIdb(tools);
              return tools;
         } catch (error) {
-            console.error("Supabase tools fetch failed, falling back to IDB", error);
+            console.error("Database tools fetch failed, falling back to IDB", error);
             return idbService.getToolsFromIdb();
         }
     }
@@ -556,7 +556,7 @@ export async function saveTool(tool: AgentTool): Promise<void> {
         try {
             await supabaseService.upsertToolsToSupabase([tool]);
         } catch (error) {
-            console.error("Failed to sync tool to Supabase", error);
+            console.error("Failed to sync tool to Database", error);
         }
     }
 }
@@ -567,7 +567,7 @@ export async function upsertTools(tools: AgentTool[]): Promise<void> {
         try {
             await supabaseService.upsertToolsToSupabase(tools);
         } catch (error) {
-            console.error("Failed to sync tools to Supabase", error);
+            console.error("Failed to sync tools to Database", error);
         }
     }
 }
@@ -578,7 +578,7 @@ export async function deleteTool(toolId: string): Promise<void> {
         try {
             await supabaseService.deleteToolFromSupabase(toolId);
         } catch (error) {
-            console.error("Failed to sync tool deletion to Supabase", error);
+            console.error("Failed to sync tool deletion to Database", error);
         }
     }
 }

@@ -376,7 +376,7 @@ const AgentsView: React.FC = () => {
                                             onClick={handleRefreshVoices}
                                             disabled={isRefreshingVoices}
                                             className="text-xs text-eburon-accent hover:text-white flex items-center gap-1 transition-colors disabled:opacity-50"
-                                            title="Fetch latest voices from Bland.ai"
+                                            title="Fetch latest voices from Eburon Engine"
                                         >
                                             <RefreshIcon className={`w-3 h-3 ${isRefreshingVoices ? 'animate-spin' : ''}`} />
                                             <span>Refresh List</span>
@@ -414,7 +414,7 @@ const AgentsView: React.FC = () => {
                             </div>
                             <div>
                                 <p className="font-bold text-eburon-fg">Thinking Mode</p>
-                                <p className="text-xs text-eburon-fg/60 max-w-md">Enables extended chain-of-thought reasoning for complex tasks (Powered by Gemini 2.5 Pro).</p>
+                                <p className="text-xs text-eburon-fg/60 max-w-md">Enables extended chain-of-thought reasoning for complex tasks (Powered by Eburon Pro).</p>
                             </div>
                         </div>
                         <button 

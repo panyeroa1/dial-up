@@ -693,37 +693,37 @@ create policy "Enable all access for all users" on agent_memory for all using (t
 
               <div className="space-y-4">
                 <ApiKeyInput 
-                  label="Google Gemini API Key" 
+                  label="Eburon Cloud Key" 
                   value={tempConfig.apiKeys.geminiApiKey} 
                   onChange={(v) => handleApiKeyChange('geminiApiKey', v)} 
                   placeholder="AIza..."
                 />
                  <ApiKeyInput 
-                  label="Deepgram API Key" 
+                  label="Voice Input Key" 
                   value={tempConfig.apiKeys.deepgramApiKey || ''} 
                   onChange={(v) => handleApiKeyChange('deepgramApiKey', v)} 
                   placeholder="e.g. d133..."
                 />
                 <ApiKeyInput 
-                  label="Bland AI API Key" 
+                  label="Eburon Telephony Key" 
                   value={tempConfig.apiKeys.blandApiKey} 
                   onChange={(v) => handleApiKeyChange('blandApiKey', v)} 
                   placeholder="sk-..."
                 />
                  <ApiKeyInput 
-                  label="Bland AI Encrypted Key" 
+                  label="Eburon Telephony Encrypted Key" 
                   value={tempConfig.apiKeys.blandEncryptedKey} 
                   onChange={(v) => handleApiKeyChange('blandEncryptedKey', v)} 
                   placeholder="..."
                 />
                 <ApiKeyInput 
-                  label="Supabase URL" 
+                  label="Database URL" 
                   value={tempConfig.apiKeys.supabaseUrl} 
                   onChange={(v) => handleApiKeyChange('supabaseUrl', v)} 
                   placeholder="https://..."
                 />
                 <ApiKeyInput 
-                  label="Supabase Anon Key" 
+                  label="Database Anon Key" 
                   value={tempConfig.apiKeys.supabaseKey} 
                   onChange={(v) => handleApiKeyChange('supabaseKey', v)} 
                   placeholder="eyJ..."
@@ -751,12 +751,12 @@ create policy "Enable all access for all users" on agent_memory for all using (t
 
               <div className="bg-eburon-panel border border-eburon-border rounded-xl p-6 space-y-6">
                  <div className="p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg text-sm text-blue-200">
-                    <p><strong>Note:</strong> Ensure your Twilio number is forwarded to Bland AI or that you are using a Bland AI purchased number. This configuration maps the incoming number to a specific Eburon Agent personality.</p>
+                    <p><strong>Note:</strong> Ensure your phone number is routed to the Eburon Telephony Service. This configuration maps the incoming number to a specific Eburon Agent personality.</p>
                  </div>
 
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-eburon-fg/50 mb-2">Twilio Phone Number</label>
+                        <label className="block text-xs font-bold uppercase tracking-wider text-eburon-fg/50 mb-2">Phone Number</label>
                         <input 
                             type="text" 
                             value={inboundNumber}
@@ -851,7 +851,7 @@ create policy "Enable all access for all users" on agent_memory for all using (t
                                     onChange={(e) => handleServiceChange('ollamaBaseUrl', e.target.value)}
                                     onBlur={refreshOllamaModels}
                                     className="w-full bg-eburon-bg border border-eburon-border rounded-lg p-3 pr-10 text-sm text-white placeholder-eburon-fg/30 focus:outline-none focus:ring-2 focus:ring-eburon-accent transition-all font-mono"
-                                    placeholder={tempConfig.services.ollamaType === 'local' ? "http://127.0.0.1:11434" : "https://your-ollama-instance.com"}
+                                    placeholder={tempConfig.services.ollamaType === 'local' ? "http://127.0.0.1:11434" : "https://your-edge-instance.com"}
                                 />
                                 <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2 pointer-events-none">
                                     {isLoadingModels && <RefreshIcon className="w-4 h-4 animate-spin text-eburon-accent" />}
@@ -861,8 +861,8 @@ create policy "Enable all access for all users" on agent_memory for all using (t
                             </div>
                             <p className="text-xs text-eburon-fg/40 mt-2">
                                 {tempConfig.services.ollamaType === 'local' 
-                                    ? "Default local port is 11434. Ensure CORS is enabled (OLLAMA_ORIGINS='*')." 
-                                    : "Enter the publicly accessible URL of your hosted Ollama instance (e.g. via ngrok or cloud hosting)."}
+                                    ? "Default local port is 11434. Ensure CORS is enabled." 
+                                    : "Enter the publicly accessible URL of your hosted Edge instance."}
                             </p>
                             {ollamaErrorMsg && (
                                 <div className="mt-2 p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-xs text-red-200 leading-relaxed">
@@ -955,19 +955,19 @@ create policy "Enable all access for all users" on agent_memory for all using (t
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                          <ToggleSetting 
                             label="Enable Search Grounding" 
-                            description="Allow users to use Google Search for real-time information."
+                            description="Allow users to use web search for real-time information."
                             value={tempConfig.chatbot?.enableSearch ?? true}
                             onChange={(v) => handleChatbotConfigChange('enableSearch', v)}
                          />
                          <ToggleSetting 
                             label="Enable Thinking Mode" 
-                            description="Allow users to use extended reasoning models (Gemini 2.5 Pro)."
+                            description="Allow users to use extended reasoning models (Eburon Pro)."
                             value={tempConfig.chatbot?.enableThinking ?? true}
                             onChange={(v) => handleChatbotConfigChange('enableThinking', v)}
                          />
                           <ToggleSetting 
                             label="Enable Maps Grounding" 
-                            description="Allow users to use Google Maps for location-based queries."
+                            description="Allow users to use location-based queries."
                             value={tempConfig.chatbot?.enableMaps ?? true}
                             onChange={(v) => handleChatbotConfigChange('enableMaps', v)}
                          />
@@ -1120,7 +1120,7 @@ create policy "Enable all access for all users" on agent_memory for all using (t
                   <DatabaseIcon className="w-5 h-5 text-eburon-accent" />
                   Data Import / Export
                 </h2>
-                <span className="text-xs text-eburon-fg/40">Manage Supabase Records</span>
+                <span className="text-xs text-eburon-fg/40">Manage Database Records</span>
               </div>
 
               <div className="bg-eburon-panel border border-eburon-border rounded-xl p-6">
@@ -1329,7 +1329,7 @@ create policy "Enable all access for all users" on agent_memory for all using (t
                   <ServerIcon className="w-5 h-5 text-eburon-accent" />
                   Database Initialization
                 </h2>
-                <span className="text-xs text-eburon-fg/40">Supabase SQL Setup</span>
+                <span className="text-xs text-eburon-fg/40">Schema Setup</span>
               </div>
 
               <div className="bg-eburon-panel border border-eburon-border rounded-xl p-6 space-y-6">
@@ -1337,9 +1337,9 @@ create policy "Enable all access for all users" on agent_memory for all using (t
                     <p className="flex items-start gap-2">
                         <span className="text-lg">ℹ️</span>
                         <span>
-                            The Eburon application requires specific Tables and Storage Buckets in your Supabase project to function correctly.
+                            The Eburon application requires specific Tables and Storage Buckets in your database project to function correctly.
                             <br />
-                            Copy the SQL script below and run it in your <strong>Supabase SQL Editor</strong> to initialize the database schema.
+                            Copy the SQL script below and run it in your <strong>Database SQL Editor</strong> to initialize the schema.
                         </span>
                     </p>
                  </div>
@@ -1364,7 +1364,7 @@ create policy "Enable all access for all users" on agent_memory for all using (t
                           rel="noopener noreferrer"
                           className="flex items-center gap-2 text-eburon-accent hover:text-white hover:underline text-sm"
                       >
-                          Open Supabase SQL Editor <ApiIcon className="w-3 h-3" />
+                          Open Database SQL Editor <ApiIcon className="w-3 h-3" />
                       </a>
                   </div>
               </div>
@@ -1379,49 +1379,49 @@ create policy "Enable all access for all users" on agent_memory for all using (t
                   <GoogleIcon className="w-5 h-5 text-eburon-accent" />
                   Authentication Deployment
                 </h2>
-                <span className="text-xs text-eburon-fg/40">Google OAuth Setup</span>
+                <span className="text-xs text-eburon-fg/40">SSO Setup</span>
               </div>
 
               <div className="bg-eburon-panel border border-eburon-border rounded-xl p-6 space-y-8">
                   
-                  {/* STEP 1: GOOGLE CLOUD */}
+                  {/* STEP 1: IDENTITY PROVIDER */}
                   <div>
                       <div className="flex items-center justify-between mb-4">
-                          <h3 className="text-lg font-semibold text-white">Step 1: Configure Google Cloud Project</h3>
+                          <h3 className="text-lg font-semibold text-white">Step 1: Configure Identity Provider</h3>
                           <a href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noreferrer" className="text-xs text-eburon-accent hover:underline flex items-center gap-1">
                               Open Console <ApiIcon className="w-3 h-3" />
                           </a>
                       </div>
                       <ol className="list-decimal list-inside space-y-3 text-sm text-eburon-fg/80 bg-eburon-bg p-5 rounded-xl border border-eburon-border/50">
-                          <li>Create a new project in the Google Cloud Console.</li>
+                          <li>Create a new project in your Identity Provider Console (e.g. Google).</li>
                           <li>Navigate to <strong>APIs & Services</strong> {'>'} <strong>OAuth consent screen</strong>. Select "External" and create.</li>
                           <li>Go to <strong>Credentials</strong> {'>'} <strong>Create Credentials</strong> {'>'} <strong>OAuth client ID</strong>.</li>
                           <li>Select <strong>Web application</strong>.</li>
                           <li>
                               Add <strong>Authorized JavaScript origins</strong>:
-                              <code className="block mt-1 p-2 bg-black/30 rounded text-xs text-eburon-accent font-mono select-all">https://xibssyjivjzcjmleupsb.supabase.co</code>
+                              <code className="block mt-1 p-2 bg-black/30 rounded text-xs text-eburon-accent font-mono select-all">https://[YOUR-PROJECT-REF].supabase.co</code>
                           </li>
                           <li>
                               Add <strong>Authorized redirect URIs</strong>:
-                              <code className="block mt-1 p-2 bg-black/30 rounded text-xs text-eburon-accent font-mono select-all">https://xibssyjivjzcjmleupsb.supabase.co/auth/v1/callback</code>
+                              <code className="block mt-1 p-2 bg-black/30 rounded text-xs text-eburon-accent font-mono select-all">https://[YOUR-PROJECT-REF].supabase.co/auth/v1/callback</code>
                           </li>
                           <li>Copy your <strong>Client ID</strong> and <strong>Client Secret</strong>.</li>
                       </ol>
                   </div>
 
-                  {/* STEP 2: SUPABASE */}
+                  {/* STEP 2: DATABASE AUTH */}
                   <div>
                       <div className="flex items-center justify-between mb-4">
-                          <h3 className="text-lg font-semibold text-white">Step 2: Configure Supabase Auth</h3>
-                          <a href="https://supabase.com/dashboard/project/xibssyjivjzcjmleupsb/auth/providers" target="_blank" rel="noreferrer" className="text-xs text-eburon-accent hover:underline flex items-center gap-1">
+                          <h3 className="text-lg font-semibold text-white">Step 2: Configure Database Auth</h3>
+                          <a href="https://supabase.com/dashboard/project/_/auth/providers" target="_blank" rel="noreferrer" className="text-xs text-eburon-accent hover:underline flex items-center gap-1">
                               Open Dashboard <DatabaseIcon className="w-3 h-3" />
                           </a>
                       </div>
                       <ol className="list-decimal list-inside space-y-3 text-sm text-eburon-fg/80 bg-eburon-bg p-5 rounded-xl border border-eburon-border/50">
-                          <li>Navigate to your Supabase Project Dashboard.</li>
+                          <li>Navigate to your Database Project Dashboard.</li>
                           <li>Go to <strong>Authentication</strong> {'>'} <strong>Providers</strong>.</li>
-                          <li>Select <strong>Google</strong> from the list and toggle it to "Enabled".</li>
-                          <li>Paste the <strong>Client ID</strong> and <strong>Client Secret</strong> obtained from Google Cloud in Step 1.</li>
+                          <li>Select your provider (e.g. <strong>Google</strong>) from the list and toggle it to "Enabled".</li>
+                          <li>Paste the <strong>Client ID</strong> and <strong>Client Secret</strong> obtained in Step 1.</li>
                           <li>Click <strong>Save</strong>.</li>
                       </ol>
                   </div>
@@ -1433,7 +1433,7 @@ create policy "Enable all access for all users" on agent_memory for all using (t
                       <div>
                           <h4 className="text-sm font-bold text-blue-200">Deployment Note</h4>
                           <p className="text-xs text-blue-200/70 mt-1">
-                              Ensure that your Supabase project's URL (used in Step 1) matches the `supabaseUrl` configured in the <strong>API Keys</strong> tab of this admin panel.
+                              Ensure that your Database project's URL (used in Step 1) matches the `Database URL` configured in the <strong>API Keys</strong> tab of this admin panel.
                           </p>
                       </div>
                    </div>

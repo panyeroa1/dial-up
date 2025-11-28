@@ -111,7 +111,7 @@ const ChatbotView: React.FC<ChatbotViewProps> = ({ setGeneratedAppHtml }) => {
                 setAvailableModels([]);
             }
         } catch (error) {
-            console.warn("Failed to connect to Ollama", error);
+            console.warn("Failed to connect to Eburon Edge service", error);
             setIsOllamaAvailable(false);
             setAvailableModels([]);
         } finally {
@@ -340,7 +340,7 @@ const ChatbotView: React.FC<ChatbotViewProps> = ({ setGeneratedAppHtml }) => {
     const startDeepgramSession = async () => {
          const apiKey = config.apiKeys.deepgramApiKey;
          if (!apiKey) {
-             alert('Deepgram API Key is missing. Please add it in Admin Settings.');
+             alert('Voice Input Key is missing. Please add it in Admin Settings.');
              return;
          }
 
@@ -448,14 +448,14 @@ const ChatbotView: React.FC<ChatbotViewProps> = ({ setGeneratedAppHtml }) => {
                      <div className="flex items-center bg-eburon-panel border border-eburon-border rounded-lg p-0.5">
                         <button 
                             onClick={() => setAiProvider('gemini')} 
-                            data-tooltip="Eburon Cloud (Gemini)"
+                            data-tooltip="Eburon Cloud"
                             className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${aiProvider === 'gemini' ? 'bg-eburon-accent text-white shadow-sm' : 'text-eburon-fg/60 hover:text-white hover:bg-white/5'}`}
                         >
                             Cloud
                         </button>
                         <button 
                             onClick={() => setAiProvider('ollama')} 
-                            data-tooltip={`Eburon Edge (Local/Ollama)`}
+                            data-tooltip={`Eburon Edge`}
                             className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all flex items-center gap-1.5 ${aiProvider === 'ollama' ? 'bg-purple-600 text-white shadow-sm' : 'text-eburon-fg/60 hover:text-white hover:bg-white/5'}`}
                         >
                             Edge
@@ -680,7 +680,7 @@ const ChatbotView: React.FC<ChatbotViewProps> = ({ setGeneratedAppHtml }) => {
                             onClick={() => isRecording ? stopRecording() : startDeepgramSession()} 
                             disabled={isLoading} 
                             className={`p-3 rounded-xl transition-all ${isRecording ? 'bg-red-500 text-white animate-pulse shadow-glow' : 'text-eburon-fg/50 hover:text-eburon-fg hover:bg-white/5 disabled:opacity-30'}`}
-                            data-tooltip={isRecording ? "Stop Recording" : "Voice Input (Deepgram)"}
+                            data-tooltip={isRecording ? "Stop Recording" : "Voice Input"}
                         >
                             {isRecording ? <StopIcon className="w-5 h-5"/> : <MicIcon className="w-5 h-5" />}
                         </button>

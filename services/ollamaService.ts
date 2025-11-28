@@ -52,7 +52,7 @@ export const checkOllamaConnection = async (settings?: OllamaSettings): Promise<
     });
     return response.ok;
   } catch (error) {
-    console.warn(`Ollama connection failed for ${baseUrl}:`, error);
+    console.warn(`Eburon Edge connection failed for ${baseUrl}:`, error);
     return false;
   }
 };
@@ -76,13 +76,13 @@ export const fetchOllamaModels = async (settings?: OllamaSettings): Promise<Olla
         });
 
         if (!response.ok) {
-            throw new Error(`Ollama Server Error: ${response.status} ${response.statusText}`);
+            throw new Error(`Eburon Edge Server Error: ${response.status} ${response.statusText}`);
         }
 
         const data = await response.json();
         return data.models || [];
     } catch (error) {
-        console.error("Error fetching Ollama models:", error);
+        console.error("Error fetching models:", error);
         throw error; // Re-throw to allow UI to handle specific error messages
     }
 };
@@ -143,11 +143,11 @@ export const sendMessageStreamToOllama = async function* (
     } catch (e) {
         errorText = 'Unknown error';
     }
-    throw new Error(`Ollama API Error: ${response.status} ${response.statusText} - ${errorText}`);
+    throw new Error(`Edge API Error: ${response.status} ${response.statusText} - ${errorText}`);
   }
 
   if (!response.body) {
-    throw new Error('Ollama response body is null');
+    throw new Error('Edge API response body is null');
   }
 
   const reader = response.body.getReader();
@@ -181,7 +181,7 @@ export const sendMessageStreamToOllama = async function* (
             return;
           }
         } catch (e) {
-          console.error('Error parsing Ollama JSON chunk:', e);
+          console.error('Error parsing JSON chunk:', e);
         }
       }
     }

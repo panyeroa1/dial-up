@@ -12,7 +12,7 @@ const getAiClient = () => {
     const apiKey = config.apiKeys.geminiApiKey || process.env.API_KEY;
     
     if (!apiKey) {
-        throw new Error("Gemini API Key not configured. Please set it in Admin Settings or env.");
+        throw new Error("Eburon Cloud Key not configured. Please set it in Admin Settings or env.");
     }
     return new GoogleGenAI({ apiKey });
 }
@@ -162,7 +162,7 @@ export const sendMessageStreamToGemini = async (
             config,
         });
     } catch (error) {
-        console.error("Eburon AI Service Error (Stream):", error);
+        console.error("Eburon AI Cloud Service Error (Stream):", error);
         throw new Error(EBURON_ERROR_MESSAGE);
     }
 };
@@ -198,7 +198,7 @@ export const generateImageWithGemini = async (
         throw new Error("No image data was found in the Eburon.ai response.");
 
     } catch (error) {
-        console.error("Eburon AI Service Error (Image Gen):", error);
+        console.error("Eburon AI Cloud Service Error (Image Gen):", error);
         throw new Error(EBURON_ERROR_MESSAGE);
     }
 }
@@ -225,7 +225,7 @@ export const generateTtsWithGemini = async (text: string, voiceName: string = 'K
         const pcmData = decode(base64Audio);
         return pcmToWavBlob(pcmData, { sampleRate: 24000, bitDepth: 16, numChannels: 1 });
     } catch (error) {
-        console.error("Eburon AI Service Error (TTS):", error);
+        console.error("Eburon AI Cloud Service Error (TTS):", error);
         throw new Error(EBURON_ERROR_MESSAGE);
     }
 }
@@ -245,7 +245,7 @@ export const transcribeAudioWithGemini = async (audioFile: File): Promise<string
         });
         return response.text || "";
     } catch (error) {
-        console.error("Eburon AI Service Error (Transcription):", error);
+        console.error("Eburon AI Cloud Service Error (Transcription):", error);
         throw new Error(EBURON_ERROR_MESSAGE);
     }
 };

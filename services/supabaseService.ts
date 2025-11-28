@@ -1,4 +1,3 @@
-
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { Agent, Voice, CallLog, TtsGeneration, ChatMessage, AgentFeedback, CrmBooking, AgentTool } from '../types';
 import { getConfig } from './configService';
@@ -14,7 +13,7 @@ const getSupabase = (): SupabaseClient => {
   const key = config.apiKeys.supabaseKey;
 
   if (!url || !key) {
-      console.warn("Supabase credentials missing in config. Using hardcoded fallbacks for demo.");
+      console.warn("Database credentials missing in config. Using hardcoded fallbacks for demo.");
       supabaseInstance = createClient(
           'https://xibssyjivjzcjmleupsb.supabase.co',
           'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhpYnNzeWppdmp6Y2ptbGV1cHNiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI4MTMzNjAsImV4cCI6MjA3ODM4OTM2MH0.2HEI12clyZRZ3gM0sUvGq5nFLkGUKKhcfPKyFUMDk34'
@@ -76,7 +75,7 @@ export const upsertAgentsToSupabase = async (agents: Agent[]): Promise<Agent[]> 
     const { data, error } = await supabase.from('agents').upsert(payloads).select();
 
     if (error) {
-        console.error("Supabase failed to upsert agents:", error);
+        console.error("Database failed to upsert agents:", error);
         throw error;
     }
 
@@ -128,7 +127,7 @@ export const saveEmotionTagForVoice = async (voiceId: string, emotionTag: string
 
     // PGRST116 = 'single row not found', which is a normal case for the first tag.
     if (selectError && selectError.code !== 'PGRST116') {
-        console.error("Supabase failed to select existing tags:", selectError);
+        console.error("Database failed to select existing tags:", selectError);
         throw selectError;
     }
 
@@ -144,7 +143,7 @@ export const saveEmotionTagForVoice = async (voiceId: string, emotionTag: string
         .upsert({ id: voiceId, tags: newTags });
 
     if (upsertError) {
-        console.error("Supabase failed to save emotion tag:", upsertError);
+        console.error("Database failed to save emotion tag:", upsertError);
         throw upsertError;
     }
 };
@@ -167,7 +166,7 @@ export const updateCustomVoiceTags = async (voiceId: string, tags: string[]): Pr
     const tagsString = tags.join(', ');
     const { error } = await supabase.from('voices_tags_backup').upsert({ id: voiceId, tags: tagsString }, { onConflict: 'id' });
     if (error) {
-        console.error("Supabase failed to update custom voice tags:", error);
+        console.error("Database failed to update custom voice tags:", error);
         throw error;
     }
 };
@@ -328,6 +327,7 @@ export const upsertChatbotMessageToSupabase = async (message: ChatMessage) => {
         role: message.role,
         text: message.text,
         image_url: message.imageUrl,
+        // FIX: Use groundingChunks from message, not grounding_chunks
         grounding_chunks: message.groundingChunks,
         telemetry: message.telemetry
     });

@@ -3,7 +3,7 @@ import { CallLog, Voice, Agent } from "../types";
 import { AYLA_PROMPT, STEPHEN_PROMPT } from "../constants";
 import { getConfig } from "./configService";
 
-const EBURON_ERROR_MESSAGE = "The Phone API service encountered an error. Please try again.";
+const EBURON_ERROR_MESSAGE = "The Eburon Phone API service encountered an error. Please try again.";
 
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -73,7 +73,7 @@ export const fetchCallLogs = async (): Promise<CallLog[]> => {
             transcript: call.transcript || [],
         }));
     } catch (error) {
-        console.error("Bland AI Service Error (fetchCallLogs):", error);
+        console.error("Eburon Voice Service Error (fetchCallLogs):", error);
         throw new Error(EBURON_ERROR_MESSAGE);
     }
 };
@@ -94,7 +94,7 @@ export const fetchCallDetails = async (callId: string): Promise<CallLog> => {
             summary: call.summary || ''
         };
     } catch (error) {
-        console.error("Bland AI Service Error (fetchCallDetails):", error);
+        console.error("Eburon Voice Service Error (fetchCallDetails):", error);
         throw new Error(EBURON_ERROR_MESSAGE);
     }
 };
@@ -136,7 +136,7 @@ export const listenToActiveCall = async (callId: string): Promise<{ success: boo
         const wsUrl = `wss://api.bland.ai/v1/listen/${callId}?api_key=${config.apiKeys.blandApiKey}`;
         return { success: true, url: wsUrl };
     } catch (error) {
-        console.error("Bland AI Service Error (listenToActiveCall):", error);
+        console.error("Eburon Voice Service Error (listenToActiveCall):", error);
         return { success: false, message: EBURON_ERROR_MESSAGE };
     }
 };
@@ -164,7 +164,7 @@ export const listVoices = async (): Promise<Voice[]> => {
             };
         });
     } catch (error) {
-        console.error("Bland AI Service Error (listVoices):", error);
+        console.error("Eburon Voice Service Error (listVoices):", error);
         throw new Error(EBURON_ERROR_MESSAGE);
     }
 };
@@ -190,7 +190,7 @@ export const generateVoiceSample = async (voiceId: string, text: string, languag
         
         return audioBlob;
     } catch (error) {
-        console.error("Bland AI Service Error (generateVoiceSample):", error);
+        console.error("Eburon Voice Service Error (generateVoiceSample):", error);
         throw new Error(EBURON_ERROR_MESSAGE);
     }
 };
@@ -260,7 +260,7 @@ export const placeCall = async (phoneNumber: string, agent: Agent): Promise<{ su
         const data = await response.json();
         return { success: true, call_id: data.call_id };
     } catch (error) {
-        console.error("Bland AI Service Error (placeCall):", error);
+        console.error("Eburon Voice Service Error (placeCall):", error);
         return { success: false, message: EBURON_ERROR_MESSAGE };
     }
 };
@@ -325,7 +325,7 @@ export const configureInboundCall = async (phoneNumber: string, agent: Agent): P
         }
 
     } catch (error) {
-        console.error("Bland AI Service Error (configureInboundCall):", error);
+        console.error("Eburon Voice Service Error (configureInboundCall):", error);
         return { success: false, message: EBURON_ERROR_MESSAGE };
     }
 };
